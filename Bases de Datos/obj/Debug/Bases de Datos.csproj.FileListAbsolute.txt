@@ -1,0 +1,11 @@
+C:\Users\a_k_n\Documents\Programas\Visual\Bases de Datos\Bases de Datos\bin\Debug\Bases de Datos.exe.config
+C:\Users\a_k_n\Documents\Programas\Visual\Bases de Datos\Bases de Datos\bin\Debug\Bases de Datos.exe
+C:\Users\a_k_n\Documents\Programas\Visual\Bases de Datos\Bases de Datos\bin\Debug\Bases de Datos.pdb
+C:\Users\a_k_n\Documents\Programas\Visual\Bases de Datos\Bases de Datos\obj\Debug\Bases de Datos.csprojAssemblyReference.cache
+C:\Users\a_k_n\Documents\Programas\Visual\Bases de Datos\Bases de Datos\obj\Debug\Bases_de_Datos.Form1.resources
+C:\Users\a_k_n\Documents\Programas\Visual\Bases de Datos\Bases de Datos\obj\Debug\Bases_de_Datos.Properties.Resources.resources
+C:\Users\a_k_n\Documents\Programas\Visual\Bases de Datos\Bases de Datos\obj\Debug\Bases de Datos.csproj.GenerateResource.cache
+C:\Users\a_k_n\Documents\Programas\Visual\Bases de Datos\Bases de Datos\obj\Debug\Bases de Datos.csproj.CoreCompileInputs.cache
+C:\Users\a_k_n\Documents\Programas\Visual\Bases de Datos\Bases de Datos\obj\Debug\Bases de Datos.exe
+C:\Users\a_k_n\Documents\Programas\Visual\Bases de Datos\Bases de Datos\obj\Debug\Bases de Datos.pdb
+C:\Users\a_k_n\Documents\Programas\Visual\Bases de Datos\Bases de Datos\obj\Debug\Bases_de_Datos.NewDataBase.resources
