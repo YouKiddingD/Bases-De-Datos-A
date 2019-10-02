@@ -9,3 +9,18 @@ C:\Users\a_k_n\Documents\Programas\Visual\Bases de Datos\Bases de Datos\obj\Debu
 C:\Users\a_k_n\Documents\Programas\Visual\Bases de Datos\Bases de Datos\obj\Debug\Bases de Datos.exe
 C:\Users\a_k_n\Documents\Programas\Visual\Bases de Datos\Bases de Datos\obj\Debug\Bases de Datos.pdb
 C:\Users\a_k_n\Documents\Programas\Visual\Bases de Datos\Bases de Datos\obj\Debug\Bases_de_Datos.NewDataBase.resources
+C:\Users\a_k_n\Documents\Programas\Bases-De-Datos-A\Bases de Datos\bin\Debug\Bases de Datos.exe.config
+C:\Users\a_k_n\Documents\Programas\Bases-De-Datos-A\Bases de Datos\bin\Debug\Bases de Datos.exe
+C:\Users\a_k_n\Documents\Programas\Bases-De-Datos-A\Bases de Datos\bin\Debug\Bases de Datos.pdb
+C:\Users\a_k_n\Documents\Programas\Bases-De-Datos-A\Bases de Datos\obj\Debug\Bases de Datos.csprojAssemblyReference.cache
+C:\Users\a_k_n\Documents\Programas\Bases-De-Datos-A\Bases de Datos\obj\Debug\Bases_de_Datos.Form1.resources
+C:\Users\a_k_n\Documents\Programas\Bases-De-Datos-A\Bases de Datos\obj\Debug\Bases_de_Datos.NewDataBase.resources
+C:\Users\a_k_n\Documents\Programas\Bases-De-Datos-A\Bases de Datos\obj\Debug\Bases_de_Datos.Properties.Resources.resources
+C:\Users\a_k_n\Documents\Programas\Bases-De-Datos-A\Bases de Datos\obj\Debug\Bases de Datos.csproj.GenerateResource.cache
+C:\Users\a_k_n\Documents\Programas\Bases-De-Datos-A\Bases de Datos\obj\Debug\Bases de Datos.csproj.CoreCompileInputs.cache
+C:\Users\a_k_n\Documents\Programas\Bases-De-Datos-A\Bases de Datos\obj\Debug\Bases de Datos.exe
+C:\Users\a_k_n\Documents\Programas\Bases-De-Datos-A\Bases de Datos\obj\Debug\Bases de Datos.pdb
+C:\Users\a_k_n\Documents\Programas\Bases-De-Datos-A\Bases de Datos\obj\Debug\Bases_de_Datos.NewAtributo.resources
+C:\Users\a_k_n\Documents\Programas\Bases-De-Datos-A\Bases de Datos\bin\Debug\Newtonsoft.Json.dll
+C:\Users\a_k_n\Documents\Programas\Bases-De-Datos-A\Bases de Datos\bin\Debug\Newtonsoft.Json.xml
+C:\Users\a_k_n\Documents\Programas\Bases-De-Datos-A\Bases de Datos\obj\Debug\Bases de Datos.csproj.CopyComplete

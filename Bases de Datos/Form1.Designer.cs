@@ -36,13 +36,17 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optConnect = new System.Windows.Forms.ToolStripMenuItem();
+            this.optDisconnect = new System.Windows.Forms.ToolStripMenuItem();
             this.btnModify = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
-            this.optDisconnect = new System.Windows.Forms.ToolStripMenuItem();
             this.btnRemove = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOkay = new System.Windows.Forms.Button();
+            this.atributoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnAddAtributo = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnEditarAtributo = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnRemoveAtributo = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.gridArchivos)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -87,7 +91,8 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.atributoToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(447, 24);
@@ -118,6 +123,13 @@
             this.optConnect.Text = "Connect to DB";
             this.optConnect.Click += new System.EventHandler(this.optConnect_Click);
             // 
+            // optDisconnect
+            // 
+            this.optDisconnect.Name = "optDisconnect";
+            this.optDisconnect.Size = new System.Drawing.Size(180, 22);
+            this.optDisconnect.Text = "Disconnect from DB";
+            this.optDisconnect.Click += new System.EventHandler(this.optDisconnect_Click);
+            // 
             // btnModify
             // 
             this.btnModify.Location = new System.Drawing.Point(301, 31);
@@ -147,13 +159,6 @@
             this.btnUpdate.TabIndex = 9;
             this.btnUpdate.Text = "Update";
             this.btnUpdate.UseVisualStyleBackColor = true;
-            // 
-            // optDisconnect
-            // 
-            this.optDisconnect.Name = "optDisconnect";
-            this.optDisconnect.Size = new System.Drawing.Size(180, 22);
-            this.optDisconnect.Text = "Disconnect from DB";
-            this.optDisconnect.Click += new System.EventHandler(this.optDisconnect_Click);
             // 
             // btnRemove
             // 
@@ -189,6 +194,35 @@
             this.btnOkay.UseVisualStyleBackColor = true;
             this.btnOkay.Visible = false;
             this.btnOkay.Click += new System.EventHandler(this.btnOkay_Click);
+            // 
+            // atributoToolStripMenuItem
+            // 
+            this.atributoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnAddAtributo,
+            this.btnEditarAtributo,
+            this.btnRemoveAtributo});
+            this.atributoToolStripMenuItem.Name = "atributoToolStripMenuItem";
+            this.atributoToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
+            this.atributoToolStripMenuItem.Text = "Atributo";
+            // 
+            // btnAddAtributo
+            // 
+            this.btnAddAtributo.Name = "btnAddAtributo";
+            this.btnAddAtributo.Size = new System.Drawing.Size(180, 22);
+            this.btnAddAtributo.Text = "Agregar";
+            this.btnAddAtributo.Click += new System.EventHandler(this.btnAddAtributo_Click);
+            // 
+            // btnEditarAtributo
+            // 
+            this.btnEditarAtributo.Name = "btnEditarAtributo";
+            this.btnEditarAtributo.Size = new System.Drawing.Size(180, 22);
+            this.btnEditarAtributo.Text = "Modificar";
+            // 
+            // btnRemoveAtributo
+            // 
+            this.btnRemoveAtributo.Name = "btnRemoveAtributo";
+            this.btnRemoveAtributo.Size = new System.Drawing.Size(180, 22);
+            this.btnRemoveAtributo.Text = "Eliminar";
             // 
             // Form1
             // 
@@ -234,6 +268,10 @@
         private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.Button btnRemove;
         private System.Windows.Forms.ToolStripMenuItem optDisconnect;
+        private System.Windows.Forms.ToolStripMenuItem atributoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem btnAddAtributo;
+        private System.Windows.Forms.ToolStripMenuItem btnEditarAtributo;
+        private System.Windows.Forms.ToolStripMenuItem btnRemoveAtributo;
     }
 }
 

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Newtonsoft.Json;
 
 namespace Bases_de_Datos
 {
@@ -15,6 +16,8 @@ namespace Bases_de_Datos
     {
         private string currentFullPath = string.Empty;
         private string currentPath = string.Empty;
+        private Dictionary<string, List<Atributo>> dicAtributos = new Dictionary<string, List<Atributo>>();
+
         public Form1()
         {
             InitializeComponent();
@@ -69,7 +72,7 @@ namespace Bases_de_Datos
                 else
                 {
                     txtBaseDatos.Text = string.Empty;
-                    Directory.Delete(currentFullPath);
+                    DeleteDirectory(currentFullPath);
                     MessageBox.Show("Base de datos eliminada correctamente");
                 }
             }
@@ -77,6 +80,25 @@ namespace Bases_de_Datos
             {
                 MessageBox.Show("Error eliminando la base de datos");
             }
+        }
+
+        private static void DeleteDirectory(string target_dir)
+        {
+            string[] files = Directory.GetFiles(target_dir);
+            string[] dirs = Directory.GetDirectories(target_dir);
+
+            foreach (string file in files)
+            {
+                File.SetAttributes(file, FileAttributes.Normal);
+                File.Delete(file);
+            }
+
+            foreach (string dir in dirs)
+            {
+                DeleteDirectory(dir);
+            }
+
+            Directory.Delete(target_dir, false);
         }
 
         private void btnModify_Click(object sender, EventArgs e)
@@ -110,6 +132,7 @@ namespace Bases_de_Datos
 
         private void reiniciarBotones(bool reinicio)
         {
+            gridArchivos.Columns.Clear();
             txtBaseDatos.Enabled = !reinicio;
             if (reinicio)
             {
@@ -139,6 +162,7 @@ namespace Bases_de_Datos
         {
             try
             {
+                reiniciarBotones(true);
                 using (var fbd = new FolderBrowserDialog())
                 {
                     DialogResult result = fbd.ShowDialog();
@@ -151,14 +175,14 @@ namespace Bases_de_Datos
                         currentPath = currentFullPath.Substring(0, currentFullPath.Length - txtBaseDatos.Text.Length);
                         string[] strArrFiles = System.IO.Directory.GetFiles(currentFullPath);
                         string strAdd = string.Empty;
-                        foreach(string s in strArrFiles)
+                        foreach (string s in strArrFiles)
                         {
-                            strAdd = s.Substring(currentFullPath.Length+1);
+                            strAdd = s.Substring(currentFullPath.Length + 1);
                             gridArchivos.Columns.Add(strAdd, strAdd);
+                            LeerAtributos(strAdd);
                         }
                     }
                 }
-                reiniciarBotones(true);
             }
             catch (Exception ex)
             {
@@ -203,6 +227,73 @@ namespace Bases_de_Datos
             catch (Exception ex)
             {
                 MessageBox.Show("Error creando el archivo en la BD");
+            }
+        }
+
+        private void btnAddAtributo_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string Tabla = gridArchivos.Columns[gridArchivos.SelectedCells[0].ColumnIndex].HeaderText;
+                Dictionary<string, int> archivos = new Dictionary<string, int>();
+                foreach (string s in dicAtributos.Keys)
+                {
+                    if (s != Tabla)
+                        foreach (Atributo a in dicAtributos[s])
+                        {
+                            if (a.Key == 1)
+                            {
+                                if (!archivos.Keys.Contains(s))
+                                    archivos.Add(s, a.Size);
+                            }
+                        }
+                }
+                using (NewAtributo NewAttr = new NewAtributo(archivos))
+                {
+                    if (NewAttr.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        if (!dicAtributos.Keys.Contains(Tabla))
+                        {
+                            dicAtributos.Add(Tabla, new List<Atributo>());
+                        }
+                        Atributo attr = new Atributo(NewAttr.strNombre, NewAttr.tipoDato, NewAttr.tam, NewAttr.key, NewAttr.FK);
+                        dicAtributos[Tabla].Add(attr);
+                        GuardarAtributo(Tabla, attr);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error creando el atributo");
+            }
+        }
+
+        private void GuardarAtributo(string strNombreArchivo, Atributo attr)
+        {
+            string jRes = string.Empty;
+
+            jRes = JsonConvert.SerializeObject(attr);
+            System.IO.File.AppendAllText(currentFullPath + "\\" + strNombreArchivo, jRes);
+            System.IO.File.AppendAllText(currentFullPath + "\\" + strNombreArchivo, "\n");
+        }
+
+        private void LeerAtributos(string strNombreArchivo)
+        {
+            try
+            {
+                List<Atributo> atributos = File.ReadAllLines(currentFullPath + "\\" + strNombreArchivo).Select(x => JsonConvert.DeserializeObject<Atributo>(x)).ToList();
+                foreach (Atributo item in atributos)
+                {
+                    if (!dicAtributos.Keys.Contains(strNombreArchivo))
+                    {
+                        dicAtributos.Add(strNombreArchivo, new List<Atributo>());
+                    }
+                    dicAtributos[strNombreArchivo].Add(item);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error leyendo los atributos del archivo " + strNombreArchivo);
             }
         }
     }
