@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.gridArchivos = new System.Windows.Forms.DataGridView();
             this.btnInsert = new System.Windows.Forms.Button();
             this.txtBaseDatos = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -43,31 +42,24 @@
             this.btnRemove = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOkay = new System.Windows.Forms.Button();
-            this.atributoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnAddAtributo = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnEditarAtributo = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnRemoveAtributo = new System.Windows.Forms.ToolStripMenuItem();
-            ((System.ComponentModel.ISupportInitialize)(this.gridArchivos)).BeginInit();
+            this.gridAtributos = new System.Windows.Forms.DataGridView();
+            this.lblTablas = new System.Windows.Forms.Label();
+            this.cboTablas = new System.Windows.Forms.ComboBox();
+            this.btnEditarAtributo = new System.Windows.Forms.Button();
+            this.btnRemoveAtributo = new System.Windows.Forms.Button();
+            this.btnAddAtributo = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridAtributos)).BeginInit();
             this.SuspendLayout();
-            // 
-            // gridArchivos
-            // 
-            this.gridArchivos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridArchivos.Location = new System.Drawing.Point(12, 60);
-            this.gridArchivos.Name = "gridArchivos";
-            this.gridArchivos.RowHeadersVisible = false;
-            this.gridArchivos.Size = new System.Drawing.Size(423, 383);
-            this.gridArchivos.TabIndex = 0;
             // 
             // btnInsert
             // 
             this.btnInsert.Enabled = false;
-            this.btnInsert.Location = new System.Drawing.Point(52, 446);
+            this.btnInsert.Location = new System.Drawing.Point(52, 117);
             this.btnInsert.Name = "btnInsert";
             this.btnInsert.Size = new System.Drawing.Size(75, 23);
             this.btnInsert.TabIndex = 1;
-            this.btnInsert.Text = "Insert";
+            this.btnInsert.Text = "Create";
             this.btnInsert.UseVisualStyleBackColor = true;
             this.btnInsert.Click += new System.EventHandler(this.btnInsert_Click);
             // 
@@ -91,8 +83,7 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.atributoToolStripMenuItem});
+            this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(447, 24);
@@ -143,17 +134,17 @@
             // btnDelete
             // 
             this.btnDelete.Enabled = false;
-            this.btnDelete.Location = new System.Drawing.Point(301, 446);
+            this.btnDelete.Location = new System.Drawing.Point(301, 117);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(75, 23);
             this.btnDelete.TabIndex = 8;
-            this.btnDelete.Text = "Delete";
+            this.btnDelete.Text = "Truncate";
             this.btnDelete.UseVisualStyleBackColor = true;
             // 
             // btnUpdate
             // 
             this.btnUpdate.Enabled = false;
-            this.btnUpdate.Location = new System.Drawing.Point(180, 446);
+            this.btnUpdate.Location = new System.Drawing.Point(180, 117);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(75, 23);
             this.btnUpdate.TabIndex = 9;
@@ -195,40 +186,78 @@
             this.btnOkay.Visible = false;
             this.btnOkay.Click += new System.EventHandler(this.btnOkay_Click);
             // 
-            // atributoToolStripMenuItem
+            // gridAtributos
             // 
-            this.atributoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnAddAtributo,
-            this.btnEditarAtributo,
-            this.btnRemoveAtributo});
-            this.atributoToolStripMenuItem.Name = "atributoToolStripMenuItem";
-            this.atributoToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
-            this.atributoToolStripMenuItem.Text = "Atributo";
+            this.gridAtributos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridAtributos.Location = new System.Drawing.Point(12, 147);
+            this.gridAtributos.Name = "gridAtributos";
+            this.gridAtributos.RowHeadersVisible = false;
+            this.gridAtributos.Size = new System.Drawing.Size(423, 314);
+            this.gridAtributos.TabIndex = 11;
             // 
-            // btnAddAtributo
+            // lblTablas
             // 
-            this.btnAddAtributo.Name = "btnAddAtributo";
-            this.btnAddAtributo.Size = new System.Drawing.Size(180, 22);
-            this.btnAddAtributo.Text = "Agregar";
-            this.btnAddAtributo.Click += new System.EventHandler(this.btnAddAtributo_Click);
+            this.lblTablas.AutoSize = true;
+            this.lblTablas.Location = new System.Drawing.Point(198, 65);
+            this.lblTablas.Name = "lblTablas";
+            this.lblTablas.Size = new System.Drawing.Size(39, 13);
+            this.lblTablas.TabIndex = 12;
+            this.lblTablas.Text = "Tablas";
+            // 
+            // cboTablas
+            // 
+            this.cboTablas.Enabled = false;
+            this.cboTablas.FormattingEnabled = true;
+            this.cboTablas.Location = new System.Drawing.Point(158, 81);
+            this.cboTablas.Name = "cboTablas";
+            this.cboTablas.Size = new System.Drawing.Size(121, 21);
+            this.cboTablas.TabIndex = 13;
+            this.cboTablas.SelectedIndexChanged += new System.EventHandler(this.cboTablas_SelectedIndexChanged);
             // 
             // btnEditarAtributo
             // 
+            this.btnEditarAtributo.Enabled = false;
+            this.btnEditarAtributo.Location = new System.Drawing.Point(180, 478);
             this.btnEditarAtributo.Name = "btnEditarAtributo";
-            this.btnEditarAtributo.Size = new System.Drawing.Size(180, 22);
-            this.btnEditarAtributo.Text = "Modificar";
+            this.btnEditarAtributo.Size = new System.Drawing.Size(75, 23);
+            this.btnEditarAtributo.TabIndex = 16;
+            this.btnEditarAtributo.Text = "Update";
+            this.btnEditarAtributo.UseVisualStyleBackColor = true;
+            this.btnEditarAtributo.Click += new System.EventHandler(this.btnEditarAtributo_Click);
             // 
             // btnRemoveAtributo
             // 
+            this.btnRemoveAtributo.Enabled = false;
+            this.btnRemoveAtributo.Location = new System.Drawing.Point(301, 478);
             this.btnRemoveAtributo.Name = "btnRemoveAtributo";
-            this.btnRemoveAtributo.Size = new System.Drawing.Size(180, 22);
-            this.btnRemoveAtributo.Text = "Eliminar";
+            this.btnRemoveAtributo.Size = new System.Drawing.Size(75, 23);
+            this.btnRemoveAtributo.TabIndex = 15;
+            this.btnRemoveAtributo.Text = "Delete";
+            this.btnRemoveAtributo.UseVisualStyleBackColor = true;
+            this.btnRemoveAtributo.Click += new System.EventHandler(this.btnRemoveAtributo_Click);
+            // 
+            // btnAddAtributo
+            // 
+            this.btnAddAtributo.Enabled = false;
+            this.btnAddAtributo.Location = new System.Drawing.Point(52, 478);
+            this.btnAddAtributo.Name = "btnAddAtributo";
+            this.btnAddAtributo.Size = new System.Drawing.Size(75, 23);
+            this.btnAddAtributo.TabIndex = 14;
+            this.btnAddAtributo.Text = "Insert";
+            this.btnAddAtributo.UseVisualStyleBackColor = true;
+            this.btnAddAtributo.Click += new System.EventHandler(this.btnAddAtributo_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(447, 481);
+            this.ClientSize = new System.Drawing.Size(447, 513);
+            this.Controls.Add(this.btnEditarAtributo);
+            this.Controls.Add(this.btnRemoveAtributo);
+            this.Controls.Add(this.btnAddAtributo);
+            this.Controls.Add(this.cboTablas);
+            this.Controls.Add(this.lblTablas);
+            this.Controls.Add(this.gridAtributos);
             this.Controls.Add(this.btnRemove);
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.btnDelete);
@@ -238,22 +267,19 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtBaseDatos);
             this.Controls.Add(this.btnInsert);
-            this.Controls.Add(this.gridArchivos);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "My Basedifier";
-            ((System.ComponentModel.ISupportInitialize)(this.gridArchivos)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridAtributos)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.DataGridView gridArchivos;
         private System.Windows.Forms.Button btnInsert;
         private System.Windows.Forms.TextBox txtBaseDatos;
         private System.Windows.Forms.Label label1;
@@ -268,10 +294,12 @@
         private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.Button btnRemove;
         private System.Windows.Forms.ToolStripMenuItem optDisconnect;
-        private System.Windows.Forms.ToolStripMenuItem atributoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem btnAddAtributo;
-        private System.Windows.Forms.ToolStripMenuItem btnEditarAtributo;
-        private System.Windows.Forms.ToolStripMenuItem btnRemoveAtributo;
+        private System.Windows.Forms.DataGridView gridAtributos;
+        private System.Windows.Forms.Label lblTablas;
+        private System.Windows.Forms.ComboBox cboTablas;
+        private System.Windows.Forms.Button btnEditarAtributo;
+        private System.Windows.Forms.Button btnRemoveAtributo;
+        private System.Windows.Forms.Button btnAddAtributo;
     }
 }
 

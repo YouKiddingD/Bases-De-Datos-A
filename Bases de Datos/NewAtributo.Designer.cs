@@ -84,6 +84,7 @@
             // 
             // txtAncho
             // 
+            this.txtAncho.Enabled = false;
             this.txtAncho.Location = new System.Drawing.Point(67, 53);
             this.txtAncho.Name = "txtAncho";
             this.txtAncho.Size = new System.Drawing.Size(39, 20);

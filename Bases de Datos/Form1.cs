@@ -17,6 +17,7 @@ namespace Bases_de_Datos
         private string currentFullPath = string.Empty;
         private string currentPath = string.Empty;
         private Dictionary<string, List<Atributo>> dicAtributos = new Dictionary<string, List<Atributo>>();
+        private string[] strTiposDato = { "int", "float", "string" };
 
         public Form1()
         {
@@ -132,7 +133,10 @@ namespace Bases_de_Datos
 
         private void reiniciarBotones(bool reinicio)
         {
-            gridArchivos.Columns.Clear();
+            gridAtributos.Columns.Clear();
+            cboTablas.Enabled = false;
+            cboTablas.Items.Clear();
+            cboTablas.Text = string.Empty;
             txtBaseDatos.Enabled = !reinicio;
             if (reinicio)
             {
@@ -178,9 +182,15 @@ namespace Bases_de_Datos
                         foreach (string s in strArrFiles)
                         {
                             strAdd = s.Substring(currentFullPath.Length + 1);
-                            gridArchivos.Columns.Add(strAdd, strAdd);
-                            LeerAtributos(strAdd);
+                            cboTablas.Items.Add(strAdd);
                         }
+                        if (cboTablas.Items.Count != 0)
+                        {
+                            cboTablas.SelectedIndex = 0;
+                            cboTablas.Enabled = true;
+                        }
+                        else
+                            cboTablas.Enabled = false;
                     }
                 }
             }
@@ -192,13 +202,19 @@ namespace Bases_de_Datos
 
         private void optDisconnect_Click(object sender, EventArgs e)
         {
+            gridAtributos.Columns.Clear();
+            cboTablas.Enabled = false;
+            cboTablas.Items.Clear();
             currentFullPath = string.Empty;
             currentPath = string.Empty;
             txtBaseDatos.Text = string.Empty;
-            gridArchivos.Columns.Clear();
+            cboTablas.Text = string.Empty;
             btnInsert.Enabled = false;
             btnUpdate.Enabled = false;
             btnDelete.Enabled = false;
+            btnAddAtributo.Enabled = false;
+            btnEditarAtributo.Enabled = false;
+            btnRemoveAtributo.Enabled = false;
         }
 
         private void btnInsert_Click(object sender, EventArgs e)
@@ -218,8 +234,10 @@ namespace Bases_de_Datos
                         {
                             using (FileStream fs = File.Create(filePath))
                             {
-                                gridArchivos.Columns.Add(NDB.strNewBase, NDB.strNewBase);
+                                cboTablas.Items.Add(NDB.strNewBase);
                             }
+                            cboTablas.Enabled = true;
+                            cboTablas.SelectedIndex = cboTablas.Items.Count - 1;
                         }
                     }
                 }
@@ -230,11 +248,63 @@ namespace Bases_de_Datos
             }
         }
 
-        private void btnAddAtributo_Click(object sender, EventArgs e)
+        private void GuardarAtributo(string strNombreArchivo, Atributo attr)
+        {
+            string jRes = string.Empty;
+
+            jRes = JsonConvert.SerializeObject(attr);
+            System.IO.File.AppendAllText(currentFullPath + "\\" + strNombreArchivo, jRes);
+            System.IO.File.AppendAllText(currentFullPath + "\\" + strNombreArchivo, "\n");
+        }
+
+        private void LeerAtributos(string strNombreArchivo)
         {
             try
             {
-                string Tabla = gridArchivos.Columns[gridArchivos.SelectedCells[0].ColumnIndex].HeaderText;
+                gridAtributos.Columns.Clear();
+                List<Atributo> atributos = File.ReadAllLines(currentFullPath + "\\" + strNombreArchivo).Select(x => JsonConvert.DeserializeObject<Atributo>(x)).ToList();
+                foreach (Atributo item in atributos)
+                {
+                    if (!dicAtributos.Keys.Contains(strNombreArchivo))
+                    {
+                        dicAtributos.Add(strNombreArchivo, new List<Atributo>());
+                    }
+                    dicAtributos[strNombreArchivo].Add(item);
+                }
+                fillGridAtributos(atributos);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error leyendo los atributos del archivo " + strNombreArchivo);
+            }
+        }
+
+        private void fillGridAtributos(List<Atributo> atributos)
+        {
+            string strInfo = string.Empty;
+            foreach (Atributo a in atributos)
+            {
+                strInfo = a.Nombre + " (" + strTiposDato[a.TipoDato - 1] + ", " + a.Size + ")";
+                gridAtributos.Columns.Add(a.Nombre, strInfo);
+            }
+        }
+
+        private void cboTablas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboTablas.SelectedItem.ToString() != string.Empty)
+            {
+                LeerAtributos(cboTablas.SelectedItem.ToString());
+                btnAddAtributo.Enabled = true;
+                btnEditarAtributo.Enabled = true;
+                btnRemoveAtributo.Enabled = true;
+            }
+        }
+
+        private void btnAddAtributo_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                string Tabla = cboTablas.SelectedItem.ToString();
                 Dictionary<string, int> archivos = new Dictionary<string, int>();
                 foreach (string s in dicAtributos.Keys)
                 {
@@ -259,6 +329,7 @@ namespace Bases_de_Datos
                         Atributo attr = new Atributo(NewAttr.strNombre, NewAttr.tipoDato, NewAttr.tam, NewAttr.key, NewAttr.FK);
                         dicAtributos[Tabla].Add(attr);
                         GuardarAtributo(Tabla, attr);
+                        LeerAtributos(cboTablas.SelectedItem.ToString());
                     }
                 }
             }
@@ -268,33 +339,54 @@ namespace Bases_de_Datos
             }
         }
 
-        private void GuardarAtributo(string strNombreArchivo, Atributo attr)
-        {
-            string jRes = string.Empty;
-
-            jRes = JsonConvert.SerializeObject(attr);
-            System.IO.File.AppendAllText(currentFullPath + "\\" + strNombreArchivo, jRes);
-            System.IO.File.AppendAllText(currentFullPath + "\\" + strNombreArchivo, "\n");
-        }
-
-        private void LeerAtributos(string strNombreArchivo)
+        private void btnAddAtributo_Click(object sender, EventArgs e)
         {
             try
             {
-                List<Atributo> atributos = File.ReadAllLines(currentFullPath + "\\" + strNombreArchivo).Select(x => JsonConvert.DeserializeObject<Atributo>(x)).ToList();
-                foreach (Atributo item in atributos)
+                string Tabla = cboTablas.SelectedItem.ToString();
+                Dictionary<string, int> archivos = new Dictionary<string, int>();
+                foreach (string s in dicAtributos.Keys)
                 {
-                    if (!dicAtributos.Keys.Contains(strNombreArchivo))
+                    if (s != Tabla)
+                        foreach (Atributo a in dicAtributos[s])
+                        {
+                            if (a.Key == 1)
+                            {
+                                if (!archivos.Keys.Contains(s))
+                                    archivos.Add(s, a.Size);
+                            }
+                        }
+                }
+                using (NewAtributo NewAttr = new NewAtributo(archivos))
+                {
+                    if (NewAttr.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
-                        dicAtributos.Add(strNombreArchivo, new List<Atributo>());
+                        if (!dicAtributos.Keys.Contains(Tabla))
+                        {
+                            dicAtributos.Add(Tabla, new List<Atributo>());
+                        }
+                        Atributo attr = new Atributo(NewAttr.strNombre, NewAttr.tipoDato, NewAttr.tam, NewAttr.key, NewAttr.FK);
+                        dicAtributos[Tabla].Add(attr);
+                        GuardarAtributo(Tabla, attr);
+                        LeerAtributos(cboTablas.SelectedItem.ToString());
                     }
-                    dicAtributos[strNombreArchivo].Add(item);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error leyendo los atributos del archivo " + strNombreArchivo);
+                MessageBox.Show("Error creando el atributo");
             }
+
+        }
+
+        private void btnEditarAtributo_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnRemoveAtributo_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
