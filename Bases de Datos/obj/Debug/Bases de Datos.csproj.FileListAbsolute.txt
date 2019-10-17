@@ -24,3 +24,4 @@ C:\Users\a_k_n\Documents\Programas\Bases-De-Datos-A\Bases de Datos\obj\Debug\Bas
 C:\Users\a_k_n\Documents\Programas\Bases-De-Datos-A\Bases de Datos\bin\Debug\Newtonsoft.Json.dll
 C:\Users\a_k_n\Documents\Programas\Bases-De-Datos-A\Bases de Datos\bin\Debug\Newtonsoft.Json.xml
 C:\Users\a_k_n\Documents\Programas\Bases-De-Datos-A\Bases de Datos\obj\Debug\Bases de Datos.csproj.CopyComplete
+C:\Users\a_k_n\Documents\Programas\Bases-De-Datos-A\Bases de Datos\obj\Debug\Bases_de_Datos.EditAtributo.resources

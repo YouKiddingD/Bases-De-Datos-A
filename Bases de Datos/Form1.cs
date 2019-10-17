@@ -322,14 +322,21 @@ namespace Bases_de_Datos
                 {
                     if (NewAttr.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
-                        if (!dicAtributos.Keys.Contains(Tabla))
+                        if (NewAttr.key == 1 && VerificarPK(Tabla))
                         {
-                            dicAtributos.Add(Tabla, new List<Atributo>());
+                            if (!dicAtributos.Keys.Contains(Tabla))
+                            {
+                                dicAtributos.Add(Tabla, new List<Atributo>());
+                            }
+                            Atributo attr = new Atributo(NewAttr.strNombre, NewAttr.tipoDato, NewAttr.tam, NewAttr.key, NewAttr.FK);
+                            dicAtributos[Tabla].Add(attr);
+                            GuardarAtributo(Tabla, attr);
+                            LeerAtributos(cboTablas.SelectedItem.ToString());
                         }
-                        Atributo attr = new Atributo(NewAttr.strNombre, NewAttr.tipoDato, NewAttr.tam, NewAttr.key, NewAttr.FK);
-                        dicAtributos[Tabla].Add(attr);
-                        GuardarAtributo(Tabla, attr);
-                        LeerAtributos(cboTablas.SelectedItem.ToString());
+                        else
+                        {
+                            MessageBox.Show("Solo puede haber una llave primaria por Tabla");
+                        }
                     }
                 }
             }
@@ -361,14 +368,21 @@ namespace Bases_de_Datos
                 {
                     if (NewAttr.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
-                        if (!dicAtributos.Keys.Contains(Tabla))
+                        if (NewAttr.key == 1 && VerificarPK(Tabla))
                         {
-                            dicAtributos.Add(Tabla, new List<Atributo>());
+                            if (!dicAtributos.Keys.Contains(Tabla))
+                            {
+                                dicAtributos.Add(Tabla, new List<Atributo>());
+                            }
+                            Atributo attr = new Atributo(NewAttr.strNombre, NewAttr.tipoDato, NewAttr.tam, NewAttr.key, NewAttr.FK);
+                            dicAtributos[Tabla].Add(attr);
+                            GuardarAtributo(Tabla, attr);
+                            LeerAtributos(cboTablas.SelectedItem.ToString());
                         }
-                        Atributo attr = new Atributo(NewAttr.strNombre, NewAttr.tipoDato, NewAttr.tam, NewAttr.key, NewAttr.FK);
-                        dicAtributos[Tabla].Add(attr);
-                        GuardarAtributo(Tabla, attr);
-                        LeerAtributos(cboTablas.SelectedItem.ToString());
+                        else
+                        {
+                            MessageBox.Show("Solo puede haber una llave primaria por Tabla");
+                        }
                     }
                 }
             }
@@ -379,14 +393,54 @@ namespace Bases_de_Datos
 
         }
 
+        private bool VerificarPK(string strNombreTabla)
+        {
+            if (dicAtributos.ContainsKey(strNombreTabla))
+            {
+                foreach (Atributo a in dicAtributos[strNombreTabla])
+                {
+                    if (a.Key == 1)
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
         private void btnEditarAtributo_Click(object sender, EventArgs e)
         {
+            using (EditAtributo edit = new EditAtributo(dicAtributos[cboTablas.SelectedItem.ToString()]))
+            {
+                if (edit.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
 
+                }
+            }
         }
 
         private void btnRemoveAtributo_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string strRemove = currentFullPath + "\\" + cboTablas.SelectedItem.ToString();
+                File.Delete(strRemove);
+                cboTablas.Items.RemoveAt(cboTablas.SelectedIndex);
+                cboTablas.Text = string.Empty;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error eliminando la tabla");
+            }
         }
     }
 }
