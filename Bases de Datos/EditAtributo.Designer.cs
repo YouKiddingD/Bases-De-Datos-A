@@ -53,6 +53,7 @@
             this.btnCancelar.TabIndex = 25;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // btnAceptar
             // 
@@ -62,10 +63,12 @@
             this.btnAceptar.TabIndex = 24;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
+            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
             // cbFK
             // 
             this.cbFK.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbFK.Enabled = false;
             this.cbFK.FormattingEnabled = true;
             this.cbFK.Items.AddRange(new object[] {
             "int",
@@ -75,6 +78,7 @@
             this.cbFK.Name = "cbFK";
             this.cbFK.Size = new System.Drawing.Size(121, 21);
             this.cbFK.TabIndex = 23;
+            this.cbFK.SelectedIndexChanged += new System.EventHandler(this.cbFK_SelectedIndexChanged);
             // 
             // label3
             // 
@@ -97,6 +101,7 @@
             this.cbKey.Name = "cbKey";
             this.cbKey.Size = new System.Drawing.Size(52, 21);
             this.cbKey.TabIndex = 21;
+            this.cbKey.SelectedIndexChanged += new System.EventHandler(this.cbKey_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -136,6 +141,7 @@
             this.cbTipoDato.Name = "cbTipoDato";
             this.cbTipoDato.Size = new System.Drawing.Size(121, 21);
             this.cbTipoDato.TabIndex = 17;
+            this.cbTipoDato.SelectedIndexChanged += new System.EventHandler(this.cbTipoDato_SelectedIndexChanged);
             // 
             // lblTipoDato
             // 
@@ -166,10 +172,6 @@
             // 
             this.cboAtributosEdit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboAtributosEdit.FormattingEnabled = true;
-            this.cboAtributosEdit.Items.AddRange(new object[] {
-            "int",
-            "float",
-            "string"});
             this.cboAtributosEdit.Location = new System.Drawing.Point(183, 12);
             this.cboAtributosEdit.Name = "cboAtributosEdit";
             this.cboAtributosEdit.Size = new System.Drawing.Size(121, 21);

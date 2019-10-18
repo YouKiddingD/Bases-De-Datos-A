@@ -39,15 +39,15 @@
             this.btnModify = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
-            this.btnRemove = new System.Windows.Forms.Button();
-            this.btnCancel = new System.Windows.Forms.Button();
-            this.btnOkay = new System.Windows.Forms.Button();
             this.gridAtributos = new System.Windows.Forms.DataGridView();
             this.lblTablas = new System.Windows.Forms.Label();
             this.cboTablas = new System.Windows.Forms.ComboBox();
             this.btnEditarAtributo = new System.Windows.Forms.Button();
             this.btnRemoveAtributo = new System.Windows.Forms.Button();
             this.btnAddAtributo = new System.Windows.Forms.Button();
+            this.btnRemove = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnOkay = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridAtributos)).BeginInit();
             this.SuspendLayout();
@@ -151,41 +151,7 @@
             this.btnUpdate.TabIndex = 9;
             this.btnUpdate.Text = "Update";
             this.btnUpdate.UseVisualStyleBackColor = true;
-            // 
-            // btnRemove
-            // 
-            this.btnRemove.BackgroundImage = global::Bases_de_Datos.Properties.Resources.remove;
-            this.btnRemove.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnRemove.Location = new System.Drawing.Point(394, 32);
-            this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(27, 23);
-            this.btnRemove.TabIndex = 10;
-            this.btnRemove.UseVisualStyleBackColor = true;
-            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.BackgroundImage = global::Bases_de_Datos.Properties.Resources.cancel;
-            this.btnCancel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnCancel.Location = new System.Drawing.Point(346, 30);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(30, 23);
-            this.btnCancel.TabIndex = 6;
-            this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Visible = false;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
-            // btnOkay
-            // 
-            this.btnOkay.BackgroundImage = global::Bases_de_Datos.Properties.Resources.check;
-            this.btnOkay.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnOkay.Location = new System.Drawing.Point(301, 31);
-            this.btnOkay.Name = "btnOkay";
-            this.btnOkay.Size = new System.Drawing.Size(30, 23);
-            this.btnOkay.TabIndex = 5;
-            this.btnOkay.UseVisualStyleBackColor = true;
-            this.btnOkay.Visible = false;
-            this.btnOkay.Click += new System.EventHandler(this.btnOkay_Click);
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // gridAtributos
             // 
@@ -207,6 +173,7 @@
             // 
             // cboTablas
             // 
+            this.cboTablas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboTablas.Enabled = false;
             this.cboTablas.FormattingEnabled = true;
             this.cboTablas.Location = new System.Drawing.Point(158, 81);
@@ -247,6 +214,41 @@
             this.btnAddAtributo.Text = "Insert";
             this.btnAddAtributo.UseVisualStyleBackColor = true;
             this.btnAddAtributo.Click += new System.EventHandler(this.btnAddAtributo_Click);
+            // 
+            // btnRemove
+            // 
+            this.btnRemove.BackgroundImage = global::Bases_de_Datos.Properties.Resources.remove;
+            this.btnRemove.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnRemove.Location = new System.Drawing.Point(394, 32);
+            this.btnRemove.Name = "btnRemove";
+            this.btnRemove.Size = new System.Drawing.Size(27, 23);
+            this.btnRemove.TabIndex = 10;
+            this.btnRemove.UseVisualStyleBackColor = true;
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.BackgroundImage = global::Bases_de_Datos.Properties.Resources.cancel;
+            this.btnCancel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnCancel.Location = new System.Drawing.Point(346, 30);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(30, 23);
+            this.btnCancel.TabIndex = 6;
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Visible = false;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // btnOkay
+            // 
+            this.btnOkay.BackgroundImage = global::Bases_de_Datos.Properties.Resources.check;
+            this.btnOkay.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnOkay.Location = new System.Drawing.Point(301, 31);
+            this.btnOkay.Name = "btnOkay";
+            this.btnOkay.Size = new System.Drawing.Size(30, 23);
+            this.btnOkay.TabIndex = 5;
+            this.btnOkay.UseVisualStyleBackColor = true;
+            this.btnOkay.Visible = false;
+            this.btnOkay.Click += new System.EventHandler(this.btnOkay_Click);
             // 
             // Form1
             // 

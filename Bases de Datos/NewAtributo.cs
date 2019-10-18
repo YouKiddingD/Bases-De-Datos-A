@@ -101,5 +101,11 @@ namespace Bases_de_Datos
             txtAncho.Enabled = false;
             txtAncho.Value = Tablas[cbFK.Text];
         }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.Close();
+        }
     }
 }

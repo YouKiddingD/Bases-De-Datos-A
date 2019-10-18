@@ -167,6 +167,7 @@ namespace Bases_de_Datos
             try
             {
                 reiniciarBotones(true);
+                dicAtributos.Clear();
                 using (var fbd = new FolderBrowserDialog())
                 {
                     DialogResult result = fbd.ShowDialog();
@@ -203,6 +204,7 @@ namespace Bases_de_Datos
         private void optDisconnect_Click(object sender, EventArgs e)
         {
             gridAtributos.Columns.Clear();
+            dicAtributos.Clear();
             cboTablas.Enabled = false;
             cboTablas.Items.Clear();
             currentFullPath = string.Empty;
@@ -248,19 +250,24 @@ namespace Bases_de_Datos
             }
         }
 
-        private void GuardarAtributo(string strNombreArchivo, Atributo attr)
+        private void GuardarAtributo(string strNombreArchivo)
         {
             string jRes = string.Empty;
 
-            jRes = JsonConvert.SerializeObject(attr);
-            System.IO.File.AppendAllText(currentFullPath + "\\" + strNombreArchivo, jRes);
-            System.IO.File.AppendAllText(currentFullPath + "\\" + strNombreArchivo, "\n");
+            System.IO.File.WriteAllText(currentFullPath + "\\" + strNombreArchivo, string.Empty);
+            foreach (Atributo attr in dicAtributos[strNombreArchivo])
+            {
+                jRes = JsonConvert.SerializeObject(attr);
+                System.IO.File.AppendAllText(currentFullPath + "\\" + strNombreArchivo, jRes);
+                System.IO.File.AppendAllText(currentFullPath + "\\" + strNombreArchivo, "\n");
+            }
         }
 
         private void LeerAtributos(string strNombreArchivo)
         {
             try
             {
+                if(dicAtributos.ContainsKey(strNombreArchivo))  dicAtributos[strNombreArchivo].Clear();
                 gridAtributos.Columns.Clear();
                 List<Atributo> atributos = File.ReadAllLines(currentFullPath + "\\" + strNombreArchivo).Select(x => JsonConvert.DeserializeObject<Atributo>(x)).ToList();
                 foreach (Atributo item in atributos)
@@ -330,7 +337,7 @@ namespace Bases_de_Datos
                             }
                             Atributo attr = new Atributo(NewAttr.strNombre, NewAttr.tipoDato, NewAttr.tam, NewAttr.key, NewAttr.FK);
                             dicAtributos[Tabla].Add(attr);
-                            GuardarAtributo(Tabla, attr);
+                            GuardarAtributo(Tabla);
                             LeerAtributos(cboTablas.SelectedItem.ToString());
                         }
                         else
@@ -368,7 +375,11 @@ namespace Bases_de_Datos
                 {
                     if (NewAttr.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
-                        if (NewAttr.key == 1 && VerificarPK(Tabla))
+                        if (NewAttr.key == 1 && !VerificarPK(Tabla))
+                        {
+                            MessageBox.Show("Solo puede haber una llave primaria por Tabla");
+                        }
+                        else
                         {
                             if (!dicAtributos.Keys.Contains(Tabla))
                             {
@@ -376,12 +387,8 @@ namespace Bases_de_Datos
                             }
                             Atributo attr = new Atributo(NewAttr.strNombre, NewAttr.tipoDato, NewAttr.tam, NewAttr.key, NewAttr.FK);
                             dicAtributos[Tabla].Add(attr);
-                            GuardarAtributo(Tabla, attr);
+                            GuardarAtributo(Tabla);
                             LeerAtributos(cboTablas.SelectedItem.ToString());
-                        }
-                        else
-                        {
-                            MessageBox.Show("Solo puede haber una llave primaria por Tabla");
                         }
                     }
                 }
@@ -414,32 +421,158 @@ namespace Bases_de_Datos
 
         private void btnEditarAtributo_Click(object sender, EventArgs e)
         {
-            using (EditAtributo edit = new EditAtributo(dicAtributos[cboTablas.SelectedItem.ToString()]))
+            try
             {
-                if (edit.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                string strTabla = cboTablas.SelectedItem.ToString();
+                Dictionary<string, int> archivos = new Dictionary<string, int>();
+                foreach (string s in dicAtributos.Keys)
                 {
-
+                    if (s != strTabla)
+                        foreach (Atributo a in dicAtributos[s])
+                        {
+                            if (a.Key == 1)
+                            {
+                                if (!archivos.Keys.Contains(s))
+                                    archivos.Add(s, a.Size);
+                            }
+                        }
                 }
+                using (EditAtributo edit = new EditAtributo(dicAtributos[strTabla], archivos))
+                {
+                    if (edit.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        int index = dicAtributos[strTabla].FindIndex(x => x.Nombre == edit.strOriginal);
+                        if (dicAtributos[strTabla][index].Key == 1 && checarFK(strTabla))
+                        {
+                            MessageBox.Show("Imposible modificar la llave primaria porque se esta haciendo referencia a la tabla");
+                        }
+                        else
+                        {
+                            dicAtributos[strTabla].RemoveAt(index);
+                            Atributo attr = new Atributo(edit.strNombre, edit.tipoDato, edit.tam, edit.key, edit.FK);
+                            dicAtributos[strTabla].Insert(index, attr);
+                            GuardarAtributo(strTabla);
+                            LeerAtributos(strTabla);
+                        }
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Error modificando el atributo");
             }
         }
 
         private void btnRemoveAtributo_Click(object sender, EventArgs e)
         {
-
+            try
+            {
+                string strTabla = cboTablas.SelectedItem.ToString();
+                using (DeleteAtributo delete = new DeleteAtributo(dicAtributos[strTabla]))
+                {
+                    if (delete.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        int index = dicAtributos[strTabla].FindIndex(x => x.Nombre == delete.selectedAttr);
+                        if (dicAtributos[strTabla][index].Key == 1 && checarFK(strTabla))
+                        {
+                            MessageBox.Show("Imposible eliminar la llave primaria porque se esta haciendo referencia a la tabla");
+                        }
+                        else
+                        {
+                            dicAtributos[strTabla].RemoveAt(index);
+                            GuardarAtributo(strTabla);
+                            LeerAtributos(strTabla);
+                        }
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Error eliminando el atributo");
+            }
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
             try
             {
-                string strRemove = currentFullPath + "\\" + cboTablas.SelectedItem.ToString();
-                File.Delete(strRemove);
-                cboTablas.Items.RemoveAt(cboTablas.SelectedIndex);
-                cboTablas.Text = string.Empty;
+                if (!checarFK(cboTablas.SelectedItem.ToString()))
+                {
+                    if(dicAtributos.ContainsKey(cboTablas.SelectedItem.ToString())) dicAtributos.Remove(cboTablas.SelectedItem.ToString());
+                    string strRemove = currentFullPath + "\\" + cboTablas.SelectedItem.ToString();
+                    File.Delete(strRemove);
+                    cboTablas.Items.RemoveAt(cboTablas.SelectedIndex);
+                    cboTablas.Text = string.Empty;
+                    gridAtributos.Columns.Clear();
+                }
+                else
+                {
+                    MessageBox.Show("No se puede eliminar la tabla porque se esta haciendo referencia a esta");
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error eliminando la tabla");
+            }
+        }
+
+        private bool checarFK(string strTabla)
+        {
+            foreach (string s in dicAtributos.Keys)
+            {
+                foreach(Atributo a in dicAtributos[s])
+                {
+                    if (a.Key == 2)
+                        if (a.TablaOrigen == strTabla)
+                            return true;
+                }
+            }
+            return false;
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string strTableOg = cboTablas.SelectedItem.ToString();
+                using (NewDataBase NDB = new NewDataBase("Inserta el nuevo nombre de la tabla: "))
+                {
+                    if (NDB.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        string filePath = currentFullPath + '\\' + NDB.strNewBase;
+                        if (File.Exists(filePath))
+                        {
+                            MessageBox.Show("El nombre de archivo especificado ya existe");
+                        }
+                        else
+                        {
+                            using (FileStream fs = File.Create(filePath))
+                            {
+                                cboTablas.Items.Add(NDB.strNewBase);
+                            }
+                            dicAtributos.Add(NDB.strNewBase, new List<Atributo>());
+                            if (dicAtributos.ContainsKey(strTableOg))
+                            {
+                                foreach (Atributo a in dicAtributos[strTableOg])
+                                {
+                                    dicAtributos[NDB.strNewBase].Add(a);
+                                }
+                                dicAtributos.Remove(strTableOg);
+                                GuardarAtributo(NDB.strNewBase);
+                                LeerAtributos(NDB.strNewBase);
+                            }
+                            string strRemove = currentFullPath + "\\" + strTableOg;
+                            File.Delete(strRemove);
+                            cboTablas.Items.RemoveAt(cboTablas.SelectedIndex);
+                            cboTablas.Enabled = true;
+                            cboTablas.SelectedIndex = cboTablas.Items.Count - 1;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error modificando la tabla");
             }
         }
     }

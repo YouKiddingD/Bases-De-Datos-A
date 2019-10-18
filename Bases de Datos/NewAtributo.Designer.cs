@@ -134,6 +134,7 @@
             // cbFK
             // 
             this.cbFK.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbFK.Enabled = false;
             this.cbFK.FormattingEnabled = true;
             this.cbFK.Items.AddRange(new object[] {
             "int",
@@ -163,6 +164,7 @@
             this.btnCancelar.TabIndex = 13;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // NewAtributo
             // 
