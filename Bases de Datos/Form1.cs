@@ -18,6 +18,7 @@ namespace Bases_de_Datos
         private string currentPath = string.Empty;
         private Dictionary<string, List<Atributo>> dicAtributos = new Dictionary<string, List<Atributo>>();
         private string[] strTiposDato = { "int", "float", "string" };
+        private List<string> tuplas = new List<string>();
 
         public Form1()
         {
@@ -259,6 +260,11 @@ namespace Bases_de_Datos
             {
                 jRes = JsonConvert.SerializeObject(attr);
                 System.IO.File.AppendAllText(currentFullPath + "\\" + strNombreArchivo, jRes);
+                System.IO.File.AppendAllText(currentFullPath + "\\" + strNombreArchivo, "\n");
+            }
+            foreach(string s in tuplas)
+            {
+                System.IO.File.AppendAllText(currentFullPath + "\\" + strNombreArchivo, s);
                 System.IO.File.AppendAllText(currentFullPath + "\\" + strNombreArchivo, "\n");
             }
         }
@@ -605,6 +611,7 @@ namespace Bases_de_Datos
                     i++;
                 }
                 gridAtributos.Rows.Add(newRow);
+                saveTupla(listaValores);
             }
             catch (Exception ex)
             {
@@ -614,7 +621,13 @@ namespace Bases_de_Datos
 
         private void saveTupla(List<string> listaValores)
         {
-
+            string txtAtributos = "A:";
+            foreach(string s in listaValores)
+            {
+                txtAtributos += s + "/";
+            }
+            tuplas.Add(txtAtributos);
+            GuardarAtributo(cboTablas.SelectedItem.ToString());
         }
     }
 }
