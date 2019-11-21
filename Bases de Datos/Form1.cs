@@ -267,7 +267,7 @@ namespace Bases_de_Datos
         {
             try
             {
-                if(dicAtributos.ContainsKey(strNombreArchivo))  dicAtributos[strNombreArchivo].Clear();
+                if (dicAtributos.ContainsKey(strNombreArchivo)) dicAtributos[strNombreArchivo].Clear();
                 gridAtributos.Columns.Clear();
                 List<Atributo> atributos = File.ReadAllLines(currentFullPath + "\\" + strNombreArchivo).Select(x => JsonConvert.DeserializeObject<Atributo>(x)).ToList();
                 foreach (Atributo item in atributos)
@@ -457,7 +457,7 @@ namespace Bases_de_Datos
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("Error modificando el atributo");
             }
@@ -486,7 +486,7 @@ namespace Bases_de_Datos
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("Error eliminando el atributo");
             }
@@ -498,7 +498,7 @@ namespace Bases_de_Datos
             {
                 if (!checarFK(cboTablas.SelectedItem.ToString()))
                 {
-                    if(dicAtributos.ContainsKey(cboTablas.SelectedItem.ToString())) dicAtributos.Remove(cboTablas.SelectedItem.ToString());
+                    if (dicAtributos.ContainsKey(cboTablas.SelectedItem.ToString())) dicAtributos.Remove(cboTablas.SelectedItem.ToString());
                     string strRemove = currentFullPath + "\\" + cboTablas.SelectedItem.ToString();
                     File.Delete(strRemove);
                     cboTablas.Items.RemoveAt(cboTablas.SelectedIndex);
@@ -520,7 +520,7 @@ namespace Bases_de_Datos
         {
             foreach (string s in dicAtributos.Keys)
             {
-                foreach(Atributo a in dicAtributos[s])
+                foreach (Atributo a in dicAtributos[s])
                 {
                     if (a.Key == 2)
                         if (a.TablaOrigen == strTabla)
@@ -574,6 +574,47 @@ namespace Bases_de_Datos
             {
                 MessageBox.Show("Error modificando la tabla");
             }
+        }
+
+        private void btnInsertTupla_Click(object sender, EventArgs e)
+        {
+            List<string> listaValores = new List<string>();
+            string Tabla = cboTablas.SelectedItem.ToString();
+            DataGridViewRow newRow = (DataGridViewRow)gridAtributos.Rows[0].Clone();
+            int i = 0;
+            try
+            {
+                foreach (Atributo a in dicAtributos[Tabla])
+                {
+                    using (NewDataBase NDB = new NewDataBase("Inserta el valor del atributo " + a.Nombre + ": "))
+                    {
+                        if (NDB.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                        {
+                            string txtNewName = NDB.strNewBase;
+                            if (txtNewName == string.Empty)
+                            {
+                                throw new Exception();
+                            }
+                            else
+                            {
+                                listaValores.Add(txtNewName);
+                                newRow.Cells[i].Value = txtNewName;
+                            }
+                        }
+                    }
+                    i++;
+                }
+                gridAtributos.Rows.Add(newRow);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error insertando tupla");
+            }
+        }
+
+        private void saveTupla(List<string> listaValores)
+        {
+
         }
     }
 }
