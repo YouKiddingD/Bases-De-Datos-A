@@ -35,7 +35,7 @@ namespace Bases_de_Datos
 
                     if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
                     {
-                        using (NewDataBase NDB = new NewDataBase("Inserta el nombre de la base de datos que sera creada:"))
+                        using (NewDataBase NDB = new NewDataBase("Insert the name of the database that will be created:"))
                         {
                             if (NDB.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                             {
@@ -59,7 +59,7 @@ namespace Bases_de_Datos
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Hubo un error creando la base de datos");
+                MessageBox.Show("There was an error creating the database");
             }
         }
 
@@ -69,18 +69,18 @@ namespace Bases_de_Datos
             {
                 if (txtBaseDatos.Text == string.Empty)
                 {
-                    MessageBox.Show("No te encuentras conectado a ninguna Base de Datos");
+                    MessageBox.Show("You are not connected to any database");
                 }
                 else
                 {
                     txtBaseDatos.Text = string.Empty;
                     DeleteDirectory(currentFullPath);
-                    MessageBox.Show("Base de datos eliminada correctamente");
+                    MessageBox.Show("Database removed correctly");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error eliminando la base de datos");
+                MessageBox.Show("Error deleting the databse");
             }
         }
 
@@ -108,7 +108,7 @@ namespace Bases_de_Datos
             if (txtBaseDatos.Text != string.Empty)
                 reiniciarBotones(false);
             else
-                MessageBox.Show("No te encuentras conectado a ninguna Base de Datos");
+                MessageBox.Show("You are not connected to any database");
         }
 
         private void btnOkay_Click(object sender, EventArgs e)
@@ -122,12 +122,12 @@ namespace Bases_de_Datos
                 else
                 {
                     Directory.Move(currentFullPath, currentPath + '\\' + txtBaseDatos.Text);
-                    MessageBox.Show("Base de datos renombrada correctamente");
+                    MessageBox.Show("Database renamed correctly");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error renombrando la base de datos");
+                MessageBox.Show("Error renaming the database");
             }
             reiniciarBotones(true);
         }
@@ -199,7 +199,7 @@ namespace Bases_de_Datos
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Hubo un error conectandose a la base de datos");
+                MessageBox.Show("There was an error connecting to the database");
             }
         }
 
@@ -226,14 +226,14 @@ namespace Bases_de_Datos
         {
             try
             {
-                using (NewDataBase NDB = new NewDataBase("Inserta el nombre del nuevo archivo que sera creado:"))
+                using (NewDataBase NDB = new NewDataBase("Insert the name of the file that will be created:"))
                 {
                     if (NDB.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
                         string filePath = currentFullPath + '\\' + NDB.strNewBase;
                         if (File.Exists(filePath))
                         {
-                            MessageBox.Show("El nombre de archivo especificado ya existe");
+                            MessageBox.Show("The specified name already exists");
                         }
                         else
                         {
@@ -249,7 +249,7 @@ namespace Bases_de_Datos
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error creando el archivo en la BD");
+                MessageBox.Show("Error creating file in the database");
             }
         }
 
@@ -264,7 +264,7 @@ namespace Bases_de_Datos
                 System.IO.File.AppendAllText(currentFullPath + "\\" + strNombreArchivo, jRes);
                 System.IO.File.AppendAllText(currentFullPath + "\\" + strNombreArchivo, "\n");
             }
-            foreach(string s in tuplas)
+            foreach (string s in tuplas)
             {
                 System.IO.File.AppendAllText(currentFullPath + "\\" + strNombreArchivo, s);
                 System.IO.File.AppendAllText(currentFullPath + "\\" + strNombreArchivo, "\n");
@@ -293,13 +293,13 @@ namespace Bases_de_Datos
                 DataGridViewRow newRow = null;
                 string[] arrValores = null;
                 int i = 0;
-                foreach(string s in registros)
+                foreach (string s in registros)
                 {
                     newRow = (DataGridViewRow)gridAtributos.Rows[0].Clone();
                     tuplas.Add(s);
                     arrValores = s.Substring(2).Split('/');
                     i = 0;
-                    foreach(string s2 in arrValores)
+                    foreach (string s2 in arrValores)
                     {
                         newRow.Cells[i].Value = s2;
                         i++;
@@ -369,14 +369,14 @@ namespace Bases_de_Datos
                         }
                         else
                         {
-                            MessageBox.Show("Solo puede haber una llave primaria por Tabla");
+                            MessageBox.Show("There can only be 1 primary key for table");
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error creando el atributo");
+                MessageBox.Show("Error creating the attribute");
             }
         }
 
@@ -404,7 +404,7 @@ namespace Bases_de_Datos
                     {
                         if (NewAttr.key == 1 && !VerificarPK(Tabla))
                         {
-                            MessageBox.Show("Solo puede haber una llave primaria por Tabla");
+                            MessageBox.Show("There can only be 1 primary key for table");
                         }
                         else
                         {
@@ -422,7 +422,7 @@ namespace Bases_de_Datos
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error creando el atributo");
+                MessageBox.Show("Error creating the attribute");
             }
 
         }
@@ -471,7 +471,7 @@ namespace Bases_de_Datos
                         int index = dicAtributos[strTabla].FindIndex(x => x.Nombre == edit.strOriginal);
                         if (dicAtributos[strTabla][index].Key == 1 && checarFK(strTabla))
                         {
-                            MessageBox.Show("Imposible modificar la llave primaria porque se esta haciendo referencia a la tabla");
+                            MessageBox.Show("Could not modify the primary key because it is being referenced by another table");
                         }
                         else
                         {
@@ -486,7 +486,7 @@ namespace Bases_de_Datos
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error modificando el atributo");
+                MessageBox.Show("Error modifying the attribute");
             }
         }
 
@@ -502,7 +502,7 @@ namespace Bases_de_Datos
                         int index = dicAtributos[strTabla].FindIndex(x => x.Nombre == delete.selectedAttr);
                         if (dicAtributos[strTabla][index].Key == 1 && checarFK(strTabla))
                         {
-                            MessageBox.Show("Imposible eliminar la llave primaria porque se esta haciendo referencia a la tabla");
+                            MessageBox.Show("Could not remove the primary key because it is being referenced by another table");
                         }
                         else
                         {
@@ -515,7 +515,7 @@ namespace Bases_de_Datos
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error eliminando el atributo");
+                MessageBox.Show("Error removing the attribute");
             }
         }
 
@@ -534,12 +534,12 @@ namespace Bases_de_Datos
                 }
                 else
                 {
-                    MessageBox.Show("No se puede eliminar la tabla porque se esta haciendo referencia a esta");
+                    MessageBox.Show("Could not modify the table because it is being referenced by another table");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error eliminando la tabla");
+                MessageBox.Show("Error removing the table");
             }
         }
 
@@ -562,14 +562,14 @@ namespace Bases_de_Datos
             try
             {
                 string strTableOg = cboTablas.SelectedItem.ToString();
-                using (NewDataBase NDB = new NewDataBase("Inserta el nuevo nombre de la tabla: "))
+                using (NewDataBase NDB = new NewDataBase("Insert the new table name: "))
                 {
                     if (NDB.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
                         string filePath = currentFullPath + '\\' + NDB.strNewBase;
                         if (File.Exists(filePath))
                         {
-                            MessageBox.Show("El nombre de archivo especificado ya existe");
+                            MessageBox.Show("The specified file already exists");
                         }
                         else
                         {
@@ -599,7 +599,7 @@ namespace Bases_de_Datos
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error modificando la tabla");
+                MessageBox.Show("Error modifying the table");
             }
         }
 
@@ -613,7 +613,7 @@ namespace Bases_de_Datos
             {
                 foreach (Atributo a in dicAtributos[Tabla])
                 {
-                    using (NewDataBase NDB = new NewDataBase("Inserta el valor del atributo " + a.Nombre + ": "))
+                    using (NewDataBase NDB = new NewDataBase("Insert the value of the attribute " + a.Nombre + ": "))
                     {
                         if (NDB.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                         {
@@ -636,14 +636,14 @@ namespace Bases_de_Datos
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error insertando tupla");
+                MessageBox.Show("Error inserting row");
             }
         }
 
         private void saveTupla(List<string> listaValores)
         {
             string txtAtributos = "A:";
-            foreach(string s in listaValores)
+            foreach (string s in listaValores)
             {
                 txtAtributos += s + "/";
             }
@@ -654,7 +654,93 @@ namespace Bases_de_Datos
 
         private void BtnDeleteTupla_Click(object sender, EventArgs e)
         {
-            int row = gridAtributos.SelectedCells[0].RowIndex;
+            try
+            {
+                int row = gridAtributos.SelectedCells[0].RowIndex;
+                gridAtributos.Rows.RemoveAt(row);
+                tuplas.RemoveAt(row);
+                GuardarAtributo(cboTablas.SelectedItem.ToString());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error removing row");
+            }
+        }
+
+        private void SQLToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string strQuery = string.Empty, strTabla = string.Empty;
+            List<string> Columns = new List<string>();
+            int auxIndex = 0;
+            bool allColumns = false;
+            try
+            {
+                using (SQL sql = new SQL())
+                {
+                    if (sql.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        strQuery = sql.strQuery;
+                        if (strQuery.Substring(0, 6).Equals("SELECT"))
+                        {
+                            strQuery = strQuery.Substring(7);
+                            if (strQuery[0] == '*')
+                            {
+                                allColumns = true;
+                            }
+                            else
+                            {
+                                allColumns = false;
+                            }
+                            auxIndex = strQuery.IndexOf("FROM");
+                            if (auxIndex != -1)
+                            {
+                                strQuery = strQuery.Substring(auxIndex + 5);
+                            }
+                            else
+                            {
+                                MessageBox.Show("FROM clause was not found");
+                                return;
+                            }
+                            auxIndex = strQuery.IndexOf(' ');
+                            if (auxIndex != -1)
+                            {
+                                strTabla = strQuery.Substring(0, auxIndex);
+                            }
+                            else
+                            {
+                                strTabla = strQuery;
+                            }
+                            if (cboTablas.Items.Contains(strTabla))
+                            {
+                                auxIndex = strQuery.IndexOf("WHERE");
+                                if (auxIndex == -1)
+                                {
+                                    if(allColumns)
+                                        cboTablas.SelectedItem = strTabla;
+                                }
+                                else
+                                {
+
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("The specified Table does not exists");
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("The only supported statement is SELECT");
+                            return;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error executing the query");
+            }
         }
     }
 }

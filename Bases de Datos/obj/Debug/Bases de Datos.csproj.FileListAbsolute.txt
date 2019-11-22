@@ -43,3 +43,4 @@ C:\Users\Daniel Torres\Documents\Repositorios GIT\Bases-De-Datos-A\Bases de Dato
 C:\Users\Daniel Torres\Documents\Repositorios GIT\Bases-De-Datos-A\Bases de Datos\obj\Debug\Bases de Datos.csproj.CopyComplete
 C:\Users\Daniel Torres\Documents\Repositorios GIT\Bases-De-Datos-A\Bases de Datos\obj\Debug\Bases de Datos.exe
 C:\Users\Daniel Torres\Documents\Repositorios GIT\Bases-De-Datos-A\Bases de Datos\obj\Debug\Bases de Datos.pdb
+C:\Users\Daniel Torres\Documents\Repositorios GIT\Bases-De-Datos-A\Bases de Datos\obj\Debug\Bases_de_Datos.SQL.resources
