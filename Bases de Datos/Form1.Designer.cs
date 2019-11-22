@@ -319,13 +319,13 @@
             // 
             // btnDeleteTupla
             // 
-            this.btnDeleteTupla.Enabled = false;
             this.btnDeleteTupla.Location = new System.Drawing.Point(286, 25);
             this.btnDeleteTupla.Name = "btnDeleteTupla";
             this.btnDeleteTupla.Size = new System.Drawing.Size(75, 23);
             this.btnDeleteTupla.TabIndex = 19;
             this.btnDeleteTupla.Text = "Delete";
             this.btnDeleteTupla.UseVisualStyleBackColor = true;
+            this.btnDeleteTupla.Click += new System.EventHandler(this.BtnDeleteTupla_Click);
             // 
             // label3
             // 
@@ -338,7 +338,6 @@
             // 
             // btnUpdateTupla
             // 
-            this.btnUpdateTupla.Enabled = false;
             this.btnUpdateTupla.Location = new System.Drawing.Point(165, 25);
             this.btnUpdateTupla.Name = "btnUpdateTupla";
             this.btnUpdateTupla.Size = new System.Drawing.Size(75, 23);

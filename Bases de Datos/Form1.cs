@@ -134,6 +134,7 @@ namespace Bases_de_Datos
 
         private void reiniciarBotones(bool reinicio)
         {
+            tuplas.Clear();
             gridAtributos.Columns.Clear();
             cboTablas.Enabled = false;
             cboTablas.Items.Clear();
@@ -204,6 +205,7 @@ namespace Bases_de_Datos
 
         private void optDisconnect_Click(object sender, EventArgs e)
         {
+            tuplas.Clear();
             gridAtributos.Columns.Clear();
             dicAtributos.Clear();
             cboTablas.Enabled = false;
@@ -274,8 +276,11 @@ namespace Bases_de_Datos
             try
             {
                 if (dicAtributos.ContainsKey(strNombreArchivo)) dicAtributos[strNombreArchivo].Clear();
-                gridAtributos.Columns.Clear();
-                List<Atributo> atributos = File.ReadAllLines(currentFullPath + "\\" + strNombreArchivo).Select(x => JsonConvert.DeserializeObject<Atributo>(x)).ToList();
+                gridAtributos.Columns.Clear(); tuplas.Clear();
+                string[] lines = File.ReadAllLines(currentFullPath + "\\" + strNombreArchivo);
+                List<string> columnas = lines.Where(x => x[0] != 'A').ToList();
+                List<string> registros = lines.Where(x => x[0] == 'A').ToList();
+                List<Atributo> atributos = columnas.Select(x => JsonConvert.DeserializeObject<Atributo>(x)).ToList();
                 foreach (Atributo item in atributos)
                 {
                     if (!dicAtributos.Keys.Contains(strNombreArchivo))
@@ -285,6 +290,22 @@ namespace Bases_de_Datos
                     dicAtributos[strNombreArchivo].Add(item);
                 }
                 fillGridAtributos(atributos);
+                DataGridViewRow newRow = null;
+                string[] arrValores = null;
+                int i = 0;
+                foreach(string s in registros)
+                {
+                    newRow = (DataGridViewRow)gridAtributos.Rows[0].Clone();
+                    tuplas.Add(s);
+                    arrValores = s.Substring(2).Split('/');
+                    i = 0;
+                    foreach(string s2 in arrValores)
+                    {
+                        newRow.Cells[i].Value = s2;
+                        i++;
+                    }
+                    gridAtributos.Rows.Add(newRow);
+                }
             }
             catch (Exception ex)
             {
@@ -626,8 +647,14 @@ namespace Bases_de_Datos
             {
                 txtAtributos += s + "/";
             }
+            txtAtributos = txtAtributos.Substring(0, txtAtributos.Length - 1);
             tuplas.Add(txtAtributos);
             GuardarAtributo(cboTablas.SelectedItem.ToString());
+        }
+
+        private void BtnDeleteTupla_Click(object sender, EventArgs e)
+        {
+            int row = gridAtributos.SelectedCells[0].RowIndex;
         }
     }
 }
