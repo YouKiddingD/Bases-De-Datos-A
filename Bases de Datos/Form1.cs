@@ -671,6 +671,8 @@ namespace Bases_de_Datos
         {
             string strQuery = string.Empty, strTabla = string.Empty;
             List<string> Columns = new List<string>();
+            List<string> Condiciones = new List<string>();
+            string ColumnsFalse = string.Empty;
             int auxIndex = 0;
             bool allColumns = false;
             try
@@ -683,17 +685,18 @@ namespace Bases_de_Datos
                         if (strQuery.Substring(0, 6).Equals("SELECT"))
                         {
                             strQuery = strQuery.Substring(7);
-                            if (strQuery[0] == '*')
-                            {
-                                allColumns = true;
-                            }
-                            else
-                            {
-                                allColumns = false;
-                            }
                             auxIndex = strQuery.IndexOf("FROM");
                             if (auxIndex != -1)
                             {
+                                if (strQuery[0] == '*')
+                                {
+                                    allColumns = true;
+                                }
+                                else
+                                {
+                                    allColumns = false;
+                                    Columns = strQuery.Substring(0, auxIndex).Split(',', ' ').Where(x => x != string.Empty).ToList();
+                                }
                                 strQuery = strQuery.Substring(auxIndex + 5);
                             }
                             else
@@ -715,12 +718,51 @@ namespace Bases_de_Datos
                                 auxIndex = strQuery.IndexOf("WHERE");
                                 if (auxIndex == -1)
                                 {
+                                    cboTablas.SelectedItem = strTabla;
+                                    foreach (string s in Columns)
+                                    {
+                                        if (!gridAtributos.Columns.Contains(s))
+                                        {
+                                            ColumnsFalse += s + ", ";
+                                        }
+                                    }
+                                    if (ColumnsFalse != string.Empty)
+                                    {
+                                        MessageBox.Show("The attributes " + ColumnsFalse.Substring(0, ColumnsFalse.Length - 2) + " do not exists");
+                                        return;
+                                    }
                                     if(allColumns)
-                                        cboTablas.SelectedItem = strTabla;
+                                    {
+                                        foreach (DataGridViewColumn c in gridAtributos.Columns)
+                                        {
+                                            c.Visible = true;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        foreach (DataGridViewColumn c in gridAtributos.Columns)
+                                        {
+                                            c.Visible = false;
+                                        }
+                                        foreach (string s in Columns)
+                                        {
+                                            gridAtributos.Columns[s].Visible = true;
+                                        }
+                                    }
                                 }
                                 else
                                 {
+                                    strQuery = strQuery.Substring(auxIndex + 6);
+                                    Condiciones = strQuery.Split(' ').Where(x => x != string.Empty).ToList();
+                                    if(Condiciones.Count == 3)
+                                    {
 
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("The WHERE condition is not valid");
+                                        return;
+                                    }
                                 }
                             }
                             else

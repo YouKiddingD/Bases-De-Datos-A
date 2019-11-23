@@ -39,12 +39,12 @@
             this.txtQuery.Location = new System.Drawing.Point(0, 0);
             this.txtQuery.Multiline = true;
             this.txtQuery.Name = "txtQuery";
-            this.txtQuery.Size = new System.Drawing.Size(1122, 635);
+            this.txtQuery.Size = new System.Drawing.Size(851, 635);
             this.txtQuery.TabIndex = 0;
             // 
             // btnAceptarSQL
             // 
-            this.btnAceptarSQL.Location = new System.Drawing.Point(405, 641);
+            this.btnAceptarSQL.Location = new System.Drawing.Point(269, 657);
             this.btnAceptarSQL.Name = "btnAceptarSQL";
             this.btnAceptarSQL.Size = new System.Drawing.Size(126, 30);
             this.btnAceptarSQL.TabIndex = 1;
@@ -54,7 +54,7 @@
             // 
             // btnCancelarSQL
             // 
-            this.btnCancelarSQL.Location = new System.Drawing.Point(593, 641);
+            this.btnCancelarSQL.Location = new System.Drawing.Point(457, 657);
             this.btnCancelarSQL.Name = "btnCancelarSQL";
             this.btnCancelarSQL.Size = new System.Drawing.Size(126, 30);
             this.btnCancelarSQL.TabIndex = 2;
@@ -66,7 +66,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1122, 683);
+            this.ClientSize = new System.Drawing.Size(851, 699);
             this.Controls.Add(this.btnCancelarSQL);
             this.Controls.Add(this.btnAceptarSQL);
             this.Controls.Add(this.txtQuery);
