@@ -756,7 +756,10 @@ namespace Bases_de_Datos
                                     Condiciones = strQuery.Split(' ').Where(x => x != string.Empty).ToList();
                                     if(Condiciones.Count == 3)
                                     {
+                                        switch(Condiciones[1])
+                                        {
 
+                                        }
                                     }
                                     else
                                     {
