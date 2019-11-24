@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 namespace Bases_de_Datos
 {
+    //FORM UTILIZADO PARA PEDIRLE AL USUARIO QUE INSERTE SU SENTENCIA SQL DESEADA
     public partial class SQL : Form
     {
         public string strQuery = string.Empty;

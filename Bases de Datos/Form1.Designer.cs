@@ -36,6 +36,8 @@
             this.createToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optConnect = new System.Windows.Forms.ToolStripMenuItem();
             this.optDisconnect = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsQuery = new System.Windows.Forms.ToolStripMenuItem();
+            this.sQLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnModify = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
@@ -56,8 +58,6 @@
             this.btnDeleteTupla = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.btnUpdateTupla = new System.Windows.Forms.Button();
-            this.queriesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sQLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridAtributos)).BeginInit();
             this.panel1.SuspendLayout();
@@ -68,10 +68,9 @@
             // btnInsert
             // 
             this.btnInsert.Enabled = false;
-            this.btnInsert.Location = new System.Drawing.Point(33, 78);
-            this.btnInsert.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnInsert.Location = new System.Drawing.Point(25, 63);
             this.btnInsert.Name = "btnInsert";
-            this.btnInsert.Size = new System.Drawing.Size(100, 28);
+            this.btnInsert.Size = new System.Drawing.Size(75, 23);
             this.btnInsert.TabIndex = 1;
             this.btnInsert.Text = "Create";
             this.btnInsert.UseVisualStyleBackColor = true;
@@ -80,19 +79,17 @@
             // txtBaseDatos
             // 
             this.txtBaseDatos.Enabled = false;
-            this.txtBaseDatos.Location = new System.Drawing.Point(151, 39);
-            this.txtBaseDatos.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtBaseDatos.Location = new System.Drawing.Point(113, 32);
             this.txtBaseDatos.Name = "txtBaseDatos";
-            this.txtBaseDatos.Size = new System.Drawing.Size(241, 22);
+            this.txtBaseDatos.Size = new System.Drawing.Size(182, 20);
             this.txtBaseDatos.TabIndex = 2;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(65, 43);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(49, 35);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(74, 17);
+            this.label1.Size = new System.Drawing.Size(57, 13);
             this.label1.TabIndex = 3;
             this.label1.Text = "DataBase:";
             // 
@@ -101,11 +98,10 @@
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.queriesToolStripMenuItem});
+            this.tsQuery});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(596, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(447, 24);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -116,36 +112,52 @@
             this.optConnect,
             this.optDisconnect});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // createToolStripMenuItem
             // 
             this.createToolStripMenuItem.Name = "createToolStripMenuItem";
-            this.createToolStripMenuItem.Size = new System.Drawing.Size(225, 26);
+            this.createToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.createToolStripMenuItem.Text = "Create";
             this.createToolStripMenuItem.Click += new System.EventHandler(this.createToolStripMenuItem_Click);
             // 
             // optConnect
             // 
             this.optConnect.Name = "optConnect";
-            this.optConnect.Size = new System.Drawing.Size(225, 26);
+            this.optConnect.Size = new System.Drawing.Size(180, 22);
             this.optConnect.Text = "Connect to DB";
             this.optConnect.Click += new System.EventHandler(this.optConnect_Click);
             // 
             // optDisconnect
             // 
             this.optDisconnect.Name = "optDisconnect";
-            this.optDisconnect.Size = new System.Drawing.Size(225, 26);
+            this.optDisconnect.Size = new System.Drawing.Size(180, 22);
             this.optDisconnect.Text = "Disconnect from DB";
             this.optDisconnect.Click += new System.EventHandler(this.optDisconnect_Click);
             // 
+            // tsQuery
+            // 
+            this.tsQuery.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.sQLToolStripMenuItem});
+            this.tsQuery.Enabled = false;
+            this.tsQuery.Name = "tsQuery";
+            this.tsQuery.Size = new System.Drawing.Size(59, 20);
+            this.tsQuery.Text = "Queries";
+            // 
+            // sQLToolStripMenuItem
+            // 
+            this.sQLToolStripMenuItem.Name = "sQLToolStripMenuItem";
+            this.sQLToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.sQLToolStripMenuItem.Text = "SQL";
+            this.sQLToolStripMenuItem.Click += new System.EventHandler(this.SQLToolStripMenuItem_Click);
+            // 
             // btnModify
             // 
-            this.btnModify.Location = new System.Drawing.Point(401, 38);
-            this.btnModify.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnModify.Enabled = false;
+            this.btnModify.Location = new System.Drawing.Point(301, 31);
             this.btnModify.Name = "btnModify";
-            this.btnModify.Size = new System.Drawing.Size(100, 28);
+            this.btnModify.Size = new System.Drawing.Size(75, 23);
             this.btnModify.TabIndex = 7;
             this.btnModify.Text = "Rename";
             this.btnModify.UseVisualStyleBackColor = true;
@@ -154,10 +166,9 @@
             // btnDelete
             // 
             this.btnDelete.Enabled = false;
-            this.btnDelete.Location = new System.Drawing.Point(365, 78);
-            this.btnDelete.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnDelete.Location = new System.Drawing.Point(274, 63);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(100, 28);
+            this.btnDelete.Size = new System.Drawing.Size(75, 23);
             this.btnDelete.TabIndex = 8;
             this.btnDelete.Text = "Drop";
             this.btnDelete.UseVisualStyleBackColor = true;
@@ -166,10 +177,9 @@
             // btnUpdate
             // 
             this.btnUpdate.Enabled = false;
-            this.btnUpdate.Location = new System.Drawing.Point(204, 78);
-            this.btnUpdate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnUpdate.Location = new System.Drawing.Point(153, 63);
             this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(100, 28);
+            this.btnUpdate.Size = new System.Drawing.Size(75, 23);
             this.btnUpdate.TabIndex = 9;
             this.btnUpdate.Text = "Modify";
             this.btnUpdate.UseVisualStyleBackColor = true;
@@ -178,21 +188,19 @@
             // gridAtributos
             // 
             this.gridAtributos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridAtributos.Location = new System.Drawing.Point(16, 206);
-            this.gridAtributos.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gridAtributos.Location = new System.Drawing.Point(12, 167);
             this.gridAtributos.Name = "gridAtributos";
             this.gridAtributos.RowHeadersVisible = false;
             this.gridAtributos.RowHeadersWidth = 51;
-            this.gridAtributos.Size = new System.Drawing.Size(564, 386);
+            this.gridAtributos.Size = new System.Drawing.Size(423, 314);
             this.gridAtributos.TabIndex = 11;
             // 
             // lblTablas
             // 
             this.lblTablas.AutoSize = true;
-            this.lblTablas.Location = new System.Drawing.Point(228, 14);
-            this.lblTablas.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblTablas.Location = new System.Drawing.Point(171, 11);
             this.lblTablas.Name = "lblTablas";
-            this.lblTablas.Size = new System.Drawing.Size(51, 17);
+            this.lblTablas.Size = new System.Drawing.Size(39, 13);
             this.lblTablas.TabIndex = 12;
             this.lblTablas.Text = "Tables";
             // 
@@ -201,20 +209,18 @@
             this.cboTablas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboTablas.Enabled = false;
             this.cboTablas.FormattingEnabled = true;
-            this.cboTablas.Location = new System.Drawing.Point(175, 33);
-            this.cboTablas.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cboTablas.Location = new System.Drawing.Point(131, 27);
             this.cboTablas.Name = "cboTablas";
-            this.cboTablas.Size = new System.Drawing.Size(160, 24);
+            this.cboTablas.Size = new System.Drawing.Size(121, 21);
             this.cboTablas.TabIndex = 13;
             this.cboTablas.SelectedIndexChanged += new System.EventHandler(this.cboTablas_SelectedIndexChanged);
             // 
             // btnEditarAtributo
             // 
             this.btnEditarAtributo.Enabled = false;
-            this.btnEditarAtributo.Location = new System.Drawing.Point(207, 53);
-            this.btnEditarAtributo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnEditarAtributo.Location = new System.Drawing.Point(155, 43);
             this.btnEditarAtributo.Name = "btnEditarAtributo";
-            this.btnEditarAtributo.Size = new System.Drawing.Size(100, 28);
+            this.btnEditarAtributo.Size = new System.Drawing.Size(75, 23);
             this.btnEditarAtributo.TabIndex = 16;
             this.btnEditarAtributo.Text = "Modify";
             this.btnEditarAtributo.UseVisualStyleBackColor = true;
@@ -223,10 +229,9 @@
             // btnRemoveAtributo
             // 
             this.btnRemoveAtributo.Enabled = false;
-            this.btnRemoveAtributo.Location = new System.Drawing.Point(368, 53);
-            this.btnRemoveAtributo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnRemoveAtributo.Location = new System.Drawing.Point(276, 43);
             this.btnRemoveAtributo.Name = "btnRemoveAtributo";
-            this.btnRemoveAtributo.Size = new System.Drawing.Size(100, 28);
+            this.btnRemoveAtributo.Size = new System.Drawing.Size(75, 23);
             this.btnRemoveAtributo.TabIndex = 15;
             this.btnRemoveAtributo.Text = "Drop";
             this.btnRemoveAtributo.UseVisualStyleBackColor = true;
@@ -235,10 +240,9 @@
             // btnAddAtributo
             // 
             this.btnAddAtributo.Enabled = false;
-            this.btnAddAtributo.Location = new System.Drawing.Point(36, 53);
-            this.btnAddAtributo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAddAtributo.Location = new System.Drawing.Point(27, 43);
             this.btnAddAtributo.Name = "btnAddAtributo";
-            this.btnAddAtributo.Size = new System.Drawing.Size(100, 28);
+            this.btnAddAtributo.Size = new System.Drawing.Size(75, 23);
             this.btnAddAtributo.TabIndex = 14;
             this.btnAddAtributo.Text = "Add";
             this.btnAddAtributo.UseVisualStyleBackColor = true;
@@ -248,10 +252,10 @@
             // 
             this.btnRemove.BackgroundImage = global::Bases_de_Datos.Properties.Resources.remove;
             this.btnRemove.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnRemove.Location = new System.Drawing.Point(525, 39);
-            this.btnRemove.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnRemove.Enabled = false;
+            this.btnRemove.Location = new System.Drawing.Point(394, 32);
             this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(36, 28);
+            this.btnRemove.Size = new System.Drawing.Size(27, 23);
             this.btnRemove.TabIndex = 10;
             this.btnRemove.UseVisualStyleBackColor = true;
             this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
@@ -260,10 +264,9 @@
             // 
             this.btnCancel.BackgroundImage = global::Bases_de_Datos.Properties.Resources.cancel;
             this.btnCancel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnCancel.Location = new System.Drawing.Point(461, 37);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCancel.Location = new System.Drawing.Point(346, 30);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(40, 28);
+            this.btnCancel.Size = new System.Drawing.Size(30, 23);
             this.btnCancel.TabIndex = 6;
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Visible = false;
@@ -273,10 +276,9 @@
             // 
             this.btnOkay.BackgroundImage = global::Bases_de_Datos.Properties.Resources.check;
             this.btnOkay.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnOkay.Location = new System.Drawing.Point(401, 38);
-            this.btnOkay.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnOkay.Location = new System.Drawing.Point(301, 31);
             this.btnOkay.Name = "btnOkay";
-            this.btnOkay.Size = new System.Drawing.Size(40, 28);
+            this.btnOkay.Size = new System.Drawing.Size(30, 23);
             this.btnOkay.TabIndex = 5;
             this.btnOkay.UseVisualStyleBackColor = true;
             this.btnOkay.Visible = false;
@@ -285,10 +287,9 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(224, 18);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(168, 15);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(68, 17);
+            this.label2.Size = new System.Drawing.Size(51, 13);
             this.label2.TabIndex = 17;
             this.label2.Text = "Attributes";
             // 
@@ -299,10 +300,9 @@
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.btnRemoveAtributo);
             this.panel1.Controls.Add(this.btnEditarAtributo);
-            this.panel1.Location = new System.Drawing.Point(33, 679);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Location = new System.Drawing.Point(25, 552);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(522, 92);
+            this.panel1.Size = new System.Drawing.Size(392, 75);
             this.panel1.TabIndex = 18;
             // 
             // panel2
@@ -313,10 +313,9 @@
             this.panel2.Controls.Add(this.btnDelete);
             this.panel2.Controls.Add(this.lblTablas);
             this.panel2.Controls.Add(this.btnUpdate);
-            this.panel2.Location = new System.Drawing.Point(43, 75);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel2.Location = new System.Drawing.Point(32, 61);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(509, 123);
+            this.panel2.Size = new System.Drawing.Size(382, 100);
             this.panel2.TabIndex = 19;
             // 
             // panel3
@@ -326,18 +325,17 @@
             this.panel3.Controls.Add(this.btnDeleteTupla);
             this.panel3.Controls.Add(this.label3);
             this.panel3.Controls.Add(this.btnUpdateTupla);
-            this.panel3.Location = new System.Drawing.Point(16, 588);
-            this.panel3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel3.Location = new System.Drawing.Point(12, 478);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(563, 75);
+            this.panel3.Size = new System.Drawing.Size(423, 61);
             this.panel3.TabIndex = 19;
             // 
             // btnInsertTupla
             // 
-            this.btnInsertTupla.Location = new System.Drawing.Point(49, 31);
-            this.btnInsertTupla.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnInsertTupla.Enabled = false;
+            this.btnInsertTupla.Location = new System.Drawing.Point(37, 25);
             this.btnInsertTupla.Name = "btnInsertTupla";
-            this.btnInsertTupla.Size = new System.Drawing.Size(100, 28);
+            this.btnInsertTupla.Size = new System.Drawing.Size(75, 23);
             this.btnInsertTupla.TabIndex = 18;
             this.btnInsertTupla.Text = "Insert";
             this.btnInsertTupla.UseVisualStyleBackColor = true;
@@ -345,10 +343,10 @@
             // 
             // btnDeleteTupla
             // 
-            this.btnDeleteTupla.Location = new System.Drawing.Point(381, 31);
-            this.btnDeleteTupla.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnDeleteTupla.Enabled = false;
+            this.btnDeleteTupla.Location = new System.Drawing.Point(286, 25);
             this.btnDeleteTupla.Name = "btnDeleteTupla";
-            this.btnDeleteTupla.Size = new System.Drawing.Size(100, 28);
+            this.btnDeleteTupla.Size = new System.Drawing.Size(75, 23);
             this.btnDeleteTupla.TabIndex = 19;
             this.btnDeleteTupla.Text = "Delete";
             this.btnDeleteTupla.UseVisualStyleBackColor = true;
@@ -357,43 +355,28 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(248, 6);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(186, 5);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(42, 17);
+            this.label3.Size = new System.Drawing.Size(34, 13);
             this.label3.TabIndex = 18;
             this.label3.Text = "Rows";
             // 
             // btnUpdateTupla
             // 
-            this.btnUpdateTupla.Location = new System.Drawing.Point(220, 31);
-            this.btnUpdateTupla.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnUpdateTupla.Enabled = false;
+            this.btnUpdateTupla.Location = new System.Drawing.Point(165, 25);
             this.btnUpdateTupla.Name = "btnUpdateTupla";
-            this.btnUpdateTupla.Size = new System.Drawing.Size(100, 28);
+            this.btnUpdateTupla.Size = new System.Drawing.Size(75, 23);
             this.btnUpdateTupla.TabIndex = 20;
             this.btnUpdateTupla.Text = "Update";
             this.btnUpdateTupla.UseVisualStyleBackColor = true;
-            // 
-            // queriesToolStripMenuItem
-            // 
-            this.queriesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.sQLToolStripMenuItem});
-            this.queriesToolStripMenuItem.Name = "queriesToolStripMenuItem";
-            this.queriesToolStripMenuItem.Size = new System.Drawing.Size(73, 24);
-            this.queriesToolStripMenuItem.Text = "Queries";
-            // 
-            // sQLToolStripMenuItem
-            // 
-            this.sQLToolStripMenuItem.Name = "sQLToolStripMenuItem";
-            this.sQLToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.sQLToolStripMenuItem.Text = "SQL";
-            this.sQLToolStripMenuItem.Click += new System.EventHandler(this.SQLToolStripMenuItem_Click);
+            this.btnUpdateTupla.Click += new System.EventHandler(this.btnUpdateTupla_Click);
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(596, 789);
+            this.ClientSize = new System.Drawing.Size(447, 641);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -406,7 +389,6 @@
             this.Controls.Add(this.txtBaseDatos);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form1";
             this.Text = "My Basedifier";
             this.menuStrip1.ResumeLayout(false);
@@ -452,7 +434,7 @@
         private System.Windows.Forms.Button btnDeleteTupla;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnUpdateTupla;
-        private System.Windows.Forms.ToolStripMenuItem queriesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsQuery;
         private System.Windows.Forms.ToolStripMenuItem sQLToolStripMenuItem;
     }
 }

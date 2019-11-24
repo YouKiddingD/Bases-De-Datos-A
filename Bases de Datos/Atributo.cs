@@ -14,6 +14,7 @@ namespace Bases_de_Datos
         private int key = 0;
         private string IDTabla;
 
+        //Constructor del objeto atributo
         public Atributo(string nombre, int dataType, int tam, int llave, string IDTabla)
         {
             strNombre = nombre;
@@ -23,6 +24,7 @@ namespace Bases_de_Datos
             this.IDTabla = IDTabla;
         }
 
+        //Metodos de acceso de cada uno de los atributos de la clase
         public string Nombre
         {
             get

@@ -17,7 +17,6 @@ C:\Users\a_k_n\Documents\Programas\Bases-De-Datos-A\Bases de Datos\obj\Debug\Bas
 C:\Users\a_k_n\Documents\Programas\Bases-De-Datos-A\Bases de Datos\obj\Debug\Bases_de_Datos.NewDataBase.resources
 C:\Users\a_k_n\Documents\Programas\Bases-De-Datos-A\Bases de Datos\obj\Debug\Bases_de_Datos.Properties.Resources.resources
 C:\Users\a_k_n\Documents\Programas\Bases-De-Datos-A\Bases de Datos\obj\Debug\Bases de Datos.csproj.GenerateResource.cache
-C:\Users\a_k_n\Documents\Programas\Bases-De-Datos-A\Bases de Datos\obj\Debug\Bases de Datos.csproj.CoreCompileInputs.cache
 C:\Users\a_k_n\Documents\Programas\Bases-De-Datos-A\Bases de Datos\obj\Debug\Bases de Datos.exe
 C:\Users\a_k_n\Documents\Programas\Bases-De-Datos-A\Bases de Datos\obj\Debug\Bases de Datos.pdb
 C:\Users\a_k_n\Documents\Programas\Bases-De-Datos-A\Bases de Datos\obj\Debug\Bases_de_Datos.NewAtributo.resources
@@ -44,3 +43,4 @@ C:\Users\Daniel Torres\Documents\Repositorios GIT\Bases-De-Datos-A\Bases de Dato
 C:\Users\Daniel Torres\Documents\Repositorios GIT\Bases-De-Datos-A\Bases de Datos\obj\Debug\Bases de Datos.exe
 C:\Users\Daniel Torres\Documents\Repositorios GIT\Bases-De-Datos-A\Bases de Datos\obj\Debug\Bases de Datos.pdb
 C:\Users\Daniel Torres\Documents\Repositorios GIT\Bases-De-Datos-A\Bases de Datos\obj\Debug\Bases_de_Datos.SQL.resources
+C:\Users\a_k_n\Documents\Programas\Bases-De-Datos-A\Bases de Datos\obj\Debug\Bases_de_Datos.SQL.resources

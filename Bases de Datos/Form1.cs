@@ -25,6 +25,7 @@ namespace Bases_de_Datos
             InitializeComponent();
         }
 
+        //Metodo para la creacion de una base de datos al darle click al boton de crear en la pestaña File
         private void createToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -63,6 +64,7 @@ namespace Bases_de_Datos
             }
         }
 
+        //Metodo para eliminar una base de datos cuando se da click en el boton correspondiente
         private void btnRemove_Click(object sender, EventArgs e)
         {
             try
@@ -84,6 +86,7 @@ namespace Bases_de_Datos
             }
         }
 
+        //Metodo para eliminar la tabla de la base de datos al seleccionarla y darle click en el boton de eliminar
         private static void DeleteDirectory(string target_dir)
         {
             string[] files = Directory.GetFiles(target_dir);
@@ -103,6 +106,7 @@ namespace Bases_de_Datos
             Directory.Delete(target_dir, false);
         }
 
+        //Metodo para modificar el nombre de la base de datos
         private void btnModify_Click(object sender, EventArgs e)
         {
             if (txtBaseDatos.Text != string.Empty)
@@ -111,6 +115,7 @@ namespace Bases_de_Datos
                 MessageBox.Show("You are not connected to any database");
         }
 
+        //Boton que se activa al realizar la accion de renombrar la base de datos y realiza lo antes mencionado
         private void btnOkay_Click(object sender, EventArgs e)
         {
             try
@@ -132,6 +137,7 @@ namespace Bases_de_Datos
             reiniciarBotones(true);
         }
 
+        //Metodo para reestablecer todos los botones y pestañas a su estado original al desconectarse de una base de datos o al estado contrario si se conecto a alguna
         private void reiniciarBotones(bool reinicio)
         {
             tuplas.Clear();
@@ -156,6 +162,10 @@ namespace Bases_de_Datos
             btnRemove.Enabled = reinicio;
             btnUpdate.Enabled = reinicio;
             btnDelete.Enabled = reinicio;
+            tsQuery.Enabled = reinicio;
+            btnModify.Enabled = reinicio;
+            btnRemove.Enabled = reinicio;
+
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -164,6 +174,7 @@ namespace Bases_de_Datos
             txtBaseDatos.Text = currentFullPath.Substring(currentPath.Length + 1);
         }
 
+        //Metodo utilizado para conectarse a una base de datos creada anteriormente y guardada en el sistema.
         private void optConnect_Click(object sender, EventArgs e)
         {
             try
@@ -196,6 +207,7 @@ namespace Bases_de_Datos
                             cboTablas.Enabled = false;
                     }
                 }
+                LeerAll();
             }
             catch (Exception ex)
             {
@@ -203,6 +215,7 @@ namespace Bases_de_Datos
             }
         }
 
+        //Metodo utilizado para desconectarse de una base de datos y restablecer varios de los parametros a su valor original.
         private void optDisconnect_Click(object sender, EventArgs e)
         {
             tuplas.Clear();
@@ -220,8 +233,12 @@ namespace Bases_de_Datos
             btnAddAtributo.Enabled = false;
             btnEditarAtributo.Enabled = false;
             btnRemoveAtributo.Enabled = false;
+            btnInsertTupla.Enabled = false;
+            btnUpdateTupla.Enabled = false;
+            btnDeleteTupla.Enabled = false;
         }
 
+        //Metodo que controla las acciones a realizar cuando se quiera crear una nueva tabla
         private void btnInsert_Click(object sender, EventArgs e)
         {
             try
@@ -253,6 +270,7 @@ namespace Bases_de_Datos
             }
         }
 
+        //Metodo que guarda en un archivo todos los atributos que conformaran las columnas de las bases de datos, con sus respectivos tipos de datos, tamaños, nombres, etc.
         private void GuardarAtributo(string strNombreArchivo)
         {
             string jRes = string.Empty;
@@ -271,6 +289,7 @@ namespace Bases_de_Datos
             }
         }
 
+        //Metodo que lee los atributos de la tabla que este seleccionada, y los muestra en pantalla consultando todos los datos actualmente guardados
         private void LeerAtributos(string strNombreArchivo)
         {
             try
@@ -313,6 +332,7 @@ namespace Bases_de_Datos
             }
         }
 
+        //Metodo que llena las cabeceras del grid con los atributos que se agregaron anteriormente.
         private void fillGridAtributos(List<Atributo> atributos)
         {
             string strInfo = string.Empty;
@@ -323,6 +343,7 @@ namespace Bases_de_Datos
             }
         }
 
+        //Este metodo se activa cuando se cambia la tabla que se esta consultando, activando un par de botones y mandando leer los atributos correspondientes.
         private void cboTablas_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cboTablas.SelectedItem.ToString() != string.Empty)
@@ -331,9 +352,34 @@ namespace Bases_de_Datos
                 btnAddAtributo.Enabled = true;
                 btnEditarAtributo.Enabled = true;
                 btnRemoveAtributo.Enabled = true;
+                btnInsertTupla.Enabled = true;
+                btnUpdateTupla.Enabled = true;
+                btnDeleteTupla.Enabled = true;
             }
         }
 
+        //Metodo que lee internamente todos los atributos de cada tabla y los almacena para ser consultados por otras tablas cuando sea necesario.
+        private void LeerAll()
+        {
+            try
+            {
+                foreach (string s in cboTablas.Items)
+                {
+                    LeerAtributos(s);
+                }
+                if(cboTablas.Items.Count > 1)
+                {
+                    cboTablas.SelectedItem = cboTablas.Items[1];
+                    cboTablas.SelectedItem = cboTablas.Items[0];
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Error reading the table attributes");
+            }
+        }
+
+        //Metodo para agregar un atributo a la tabla seleccionada.
         private void btnAddAtributo_Click_1(object sender, EventArgs e)
         {
             try
@@ -380,6 +426,7 @@ namespace Bases_de_Datos
             }
         }
 
+        //Sobrecarga del metodo anterior, utilizados para basicamente lo mismo.
         private void btnAddAtributo_Click(object sender, EventArgs e)
         {
             try
@@ -427,6 +474,7 @@ namespace Bases_de_Datos
 
         }
 
+        //Metodo que verifica si ya existe una llave primaria en la tabla actual, evitando que se crea otra.
         private bool VerificarPK(string strNombreTabla)
         {
             if (dicAtributos.ContainsKey(strNombreTabla))
@@ -446,6 +494,7 @@ namespace Bases_de_Datos
             }
         }
 
+        //Metodo que se ejecuta cuando se quiera modificar la configuracion del atributo, modificando tambien el contenido del archivo para mantener las opciones correctas.
         private void btnEditarAtributo_Click(object sender, EventArgs e)
         {
             try
@@ -490,6 +539,7 @@ namespace Bases_de_Datos
             }
         }
 
+        //Metodo que remueve el atributo de la tabla seleccionada.
         private void btnRemoveAtributo_Click(object sender, EventArgs e)
         {
             try
@@ -519,6 +569,7 @@ namespace Bases_de_Datos
             }
         }
 
+        //Metodo utilizado para borrar la tabla actualmente seleccionada evitando ser borrada si esque esta esta siendo referenciada.
         private void btnDelete_Click(object sender, EventArgs e)
         {
             try
@@ -543,6 +594,7 @@ namespace Bases_de_Datos
             }
         }
 
+        //Metodo que verifica si la tabla actual esta siendo referenciada por alguna otra tabla a traves de una llave foranea.
         private bool checarFK(string strTabla)
         {
             foreach (string s in dicAtributos.Keys)
@@ -557,6 +609,7 @@ namespace Bases_de_Datos
             return false;
         }
 
+        //Metodo que cambia el nombre de la tabla actualmente seleccionada por el especificado.
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             try
@@ -603,12 +656,20 @@ namespace Bases_de_Datos
             }
         }
 
+        //Metodo para insertar una tupla con datos que se van a registrar en la base de datos, listos para poder ser consultados. Ademas, se validan ciertas cosas para asegurar la
+        //integridad de datos.
         private void btnInsertTupla_Click(object sender, EventArgs e)
         {
             List<string> listaValores = new List<string>();
             string Tabla = cboTablas.SelectedItem.ToString();
+            int i = 0, numColumn = 0;
+            bool duplica = false;
+            if (!dicAtributos.ContainsKey(Tabla) || dicAtributos[Tabla].Count == 0)
+            {
+                MessageBox.Show("There is no attributes on the table " + Tabla);
+                return;
+            }
             DataGridViewRow newRow = (DataGridViewRow)gridAtributos.Rows[0].Clone();
-            int i = 0;
             try
             {
                 foreach (Atributo a in dicAtributos[Tabla])
@@ -624,6 +685,40 @@ namespace Bases_de_Datos
                             }
                             else
                             {
+                                if (a.TipoDato == 3 && txtNewName.Length > a.Size)
+                                {
+                                    MessageBox.Show("The length of the string is bigger than the column size");
+                                    return;
+                                }
+                                if (a.TipoDato == 1 && !Int32.TryParse(txtNewName, out int num))
+                                {
+                                    MessageBox.Show("The attribute must be a number");
+                                    return;
+                                }
+                                if (a.Key == 1)
+                                {
+                                    numColumn = gridAtributos.Columns[a.Nombre].Index;
+                                    DataGridViewRow r;
+                                    for (int j = 0; j < gridAtributos.Rows.Count - 1; j++)
+                                    {
+                                        r = gridAtributos.Rows[j];
+                                        if (r.Cells[numColumn].Value.ToString() == txtNewName)
+                                            duplica = true;
+                                    }
+                                    if (duplica)
+                                    {
+                                        MessageBox.Show("The primary key cannot be duplicated");
+                                        return;
+                                    }
+                                }
+                                if (a.Key == 2)
+                                {
+                                    if (!GetPKTabla(a.TablaOrigen).Contains(txtNewName))
+                                    {
+                                        MessageBox.Show("The given Foreign Key does not exists");
+                                        return;
+                                    }
+                                }
                                 listaValores.Add(txtNewName);
                                 newRow.Cells[i].Value = txtNewName;
                             }
@@ -640,6 +735,7 @@ namespace Bases_de_Datos
             }
         }
 
+        //Metodo que forma la estructura de la tupla para poder ser guardada en el archivo correspondiente.
         private void saveTupla(List<string> listaValores)
         {
             string txtAtributos = "A:";
@@ -652,14 +748,37 @@ namespace Bases_de_Datos
             GuardarAtributo(cboTablas.SelectedItem.ToString());
         }
 
+        //Sobrecarga del metodo anterior que inserta la tupla en el lugar de la que se va a reemplazar al editar algun atributo.
+        private void saveTupla(List<string> listaValores, int index)
+        {
+            string txtAtributos = "A:";
+            foreach (string s in listaValores)
+            {
+                txtAtributos += s + "/";
+            }
+            txtAtributos = txtAtributos.Substring(0, txtAtributos.Length - 1);
+            tuplas.RemoveAt(index);
+            tuplas.Insert(index, txtAtributos);
+            GuardarAtributo(cboTablas.SelectedItem.ToString());
+        }
+
+        //Metodo utilizado para borrar una tupla seleccionada con todos sus datos.
         private void BtnDeleteTupla_Click(object sender, EventArgs e)
         {
             try
             {
-                int row = gridAtributos.SelectedCells[0].RowIndex;
-                gridAtributos.Rows.RemoveAt(row);
-                tuplas.RemoveAt(row);
-                GuardarAtributo(cboTablas.SelectedItem.ToString());
+                if (VerificarReferenciaRow())
+                {
+                    MessageBox.Show("The row can not be removed because is being reference by another register");
+                    return;
+                }
+                else
+                {
+                    int row = gridAtributos.SelectedCells[0].RowIndex;
+                    gridAtributos.Rows.RemoveAt(row);
+                    tuplas.RemoveAt(row);
+                    GuardarAtributo(cboTablas.SelectedItem.ToString());
+                }
             }
             catch (Exception ex)
             {
@@ -667,6 +786,8 @@ namespace Bases_de_Datos
             }
         }
 
+        //Metodo que abre la ventana para realizar la consulta SQL la cual lee si la sentencia es correcta, y muestra en pantalla cada uno de los
+        //registros que cumplen con las condiciones indicadas.
         private void SQLToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string strQuery = string.Empty, strTabla = string.Empty;
@@ -716,49 +837,104 @@ namespace Bases_de_Datos
                             if (cboTablas.Items.Contains(strTabla))
                             {
                                 auxIndex = strQuery.IndexOf("WHERE");
-                                if (auxIndex == -1)
+                                cboTablas.SelectedItem = strTabla;
+                                foreach (string s in Columns)
                                 {
-                                    cboTablas.SelectedItem = strTabla;
-                                    foreach (string s in Columns)
+                                    if (!gridAtributos.Columns.Contains(s))
                                     {
-                                        if (!gridAtributos.Columns.Contains(s))
-                                        {
-                                            ColumnsFalse += s + ", ";
-                                        }
+                                        ColumnsFalse += s + ", ";
                                     }
-                                    if (ColumnsFalse != string.Empty)
+                                }
+                                if (ColumnsFalse != string.Empty)
+                                {
+                                    MessageBox.Show("The attributes " + ColumnsFalse.Substring(0, ColumnsFalse.Length - 2) + " do not exists");
+                                    return;
+                                }
+                                if (allColumns)
+                                {
+                                    foreach (DataGridViewColumn c in gridAtributos.Columns)
                                     {
-                                        MessageBox.Show("The attributes " + ColumnsFalse.Substring(0, ColumnsFalse.Length - 2) + " do not exists");
-                                        return;
-                                    }
-                                    if(allColumns)
-                                    {
-                                        foreach (DataGridViewColumn c in gridAtributos.Columns)
-                                        {
-                                            c.Visible = true;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        foreach (DataGridViewColumn c in gridAtributos.Columns)
-                                        {
-                                            c.Visible = false;
-                                        }
-                                        foreach (string s in Columns)
-                                        {
-                                            gridAtributos.Columns[s].Visible = true;
-                                        }
+                                        c.Visible = true;
                                     }
                                 }
                                 else
                                 {
+                                    foreach (DataGridViewColumn c in gridAtributos.Columns)
+                                    {
+                                        c.Visible = false;
+                                    }
+                                    foreach (string s in Columns)
+                                    {
+                                        gridAtributos.Columns[s].Visible = true;
+                                    }
+                                }
+                                if (auxIndex != -1)
+                                {
                                     strQuery = strQuery.Substring(auxIndex + 6);
                                     Condiciones = strQuery.Split(' ').Where(x => x != string.Empty).ToList();
-                                    if(Condiciones.Count == 3)
+                                    if (Condiciones.Count == 3)
                                     {
-                                        switch(Condiciones[1])
+                                        if (gridAtributos.Columns.Contains(Condiciones[0]))
                                         {
-
+                                            int numColumn = gridAtributos.Columns[Condiciones[0]].Index;
+                                            int numAttr = 0;
+                                            int operando = 0;
+                                            DataGridViewRow r;
+                                            if (Int32.TryParse(gridAtributos.Rows[1].Cells[numColumn].Value.ToString(), out numAttr))
+                                            {
+                                                if (Int32.TryParse(Condiciones[2], out operando))
+                                                {
+                                                    for (int i = 0; i < gridAtributos.Rows.Count - 1; i++)
+                                                    {
+                                                        r = gridAtributos.Rows[i];
+                                                        r.Visible = false;
+                                                        if (Int32.TryParse(r.Cells[numColumn].Value.ToString(), out numAttr))
+                                                        {
+                                                            switch (Condiciones[1])
+                                                            {
+                                                                case "=":
+                                                                    if (numAttr == operando) r.Visible = true;
+                                                                    break;
+                                                                case ">":
+                                                                    if (numAttr > operando) r.Visible = true;
+                                                                    break;
+                                                                case "<":
+                                                                    if (numAttr < operando) r.Visible = true;
+                                                                    break;
+                                                                case ">=":
+                                                                    if (numAttr >= operando) r.Visible = true;
+                                                                    break;
+                                                                case "<=":
+                                                                    if (numAttr <= operando) r.Visible = true;
+                                                                    break;
+                                                                case "<>":
+                                                                    if (numAttr != operando) r.Visible = true;
+                                                                    break;
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            MessageBox.Show("The attribute on the line " + i + " is not valid. It must be a number.");
+                                                            return;
+                                                        }
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    MessageBox.Show("The parameter " + Condiciones[2] + " is not valid. It must be a number.");
+                                                    return;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                MessageBox.Show("The attribute " + Condiciones[0] + " is not valid. It must be a number.");
+                                                return;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            MessageBox.Show("The attribute " + Condiciones[0] + " doest exists");
+                                            return;
                                         }
                                     }
                                     else
@@ -786,6 +962,170 @@ namespace Bases_de_Datos
             {
                 MessageBox.Show("Error executing the query");
             }
+        }
+
+        //Metodo que obtiene una lista de las llaves primarias de cada uno de los registros que existen en la tabla actualmente seleccionada para su posterior uso.
+        private List<string> GetPKTabla(string strTabla)
+        {
+            List<string> listPK = new List<string>();
+            try
+            {
+                string[] lines = File.ReadAllLines(currentFullPath + "\\" + strTabla);
+                List<string> columnas = lines.Where(x => x[0] != 'A').ToList();
+                List<string> registros = lines.Where(x => x[0] == 'A').ToList();
+                List<Atributo> atributos = columnas.Select(x => JsonConvert.DeserializeObject<Atributo>(x)).ToList();
+                int index = atributos.IndexOf(atributos.Find(x => x.Key == 1));
+                string[] arrValores = null;
+                foreach (string s in registros)
+                {
+                    arrValores = s.Substring(2).Split('/');
+                    listPK.Add(arrValores[index]);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error verifying the foreign key");
+            }
+            return listPK;
+        }
+
+        //Metodo que obtiene una lista de las llaves foraneas de cada uno de los registros FK que existen en la tabla actualmente seleccionada para su posterior uso. 
+        private List<string> GetFKTabla(string strTabla)
+        {
+            List<string> listFK = new List<string>();
+            try
+            {
+                string[] lines = File.ReadAllLines(currentFullPath + "\\" + strTabla);
+                List<string> columnas = lines.Where(x => x[0] != 'A').ToList();
+                List<string> registros = lines.Where(x => x[0] == 'A').ToList();
+                List<Atributo> atributos = columnas.Select(x => JsonConvert.DeserializeObject<Atributo>(x)).ToList();
+                int index = atributos.IndexOf(atributos.Find(x => x.Key == 2));
+                string[] arrValores = null;
+                foreach (string s in registros)
+                {
+                    arrValores = s.Substring(2).Split('/');
+                    listFK.Add(arrValores[index]);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error verifying the foreign key");
+            }
+            return listFK;
+        }
+
+        //Metodo utilizado para la edicion de uno de los atributos, la cual realiza validaciones para asegurar integridad referencial.
+        private void btnUpdateTupla_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int row = gridAtributos.SelectedCells[0].RowIndex;
+                List<string> listaValores = new List<string>();
+                string strTabla = cboTablas.SelectedItem.ToString();
+                string strColumn = gridAtributos.SelectedCells[0].OwningColumn.Name.ToString();
+                Atributo a = dicAtributos[strTabla].Find(x => x.Nombre == strColumn);
+                using (NewDataBase NDB = new NewDataBase("Insert the value of the attribute " + strColumn + ": ", gridAtributos.SelectedCells[0].Value.ToString()))
+                {
+                    if (NDB.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        string txtNewName = NDB.strNewBase;
+                        if (txtNewName == string.Empty)
+                        {
+                            throw new Exception();
+                        }
+                        else
+                        {
+                            if (a.TipoDato == 3 && txtNewName.Length > a.Size)
+                            {
+                                MessageBox.Show("The length of the string is bigger than the column size");
+                                return;
+                            }
+                            if (a.TipoDato == 1 && !Int32.TryParse(txtNewName, out int num))
+                            {
+                                MessageBox.Show("The attribute must be a number");
+                                return;
+                            }
+                            if (a.Key == 1)
+                            {
+
+                                if (VerificarReferenciaRow())
+                                {
+                                    MessageBox.Show("The row can not be modified because is being reference by another register");
+                                    return;
+                                }
+                                else
+                                {
+                                    int numColumn = gridAtributos.Columns[a.Nombre].Index;
+                                    bool duplica = false;
+                                    DataGridViewRow r;
+                                    for (int j = 0; j < gridAtributos.Rows.Count - 1; j++)
+                                    {
+                                        r = gridAtributos.Rows[j];
+                                        if (r.Cells[numColumn].Value.ToString() == txtNewName)
+                                            duplica = true;
+                                    }
+                                    if (duplica)
+                                    {
+                                        MessageBox.Show("The primary key cannot be duplicated");
+                                        return;
+                                    }
+                                }
+                            }
+                            if (a.Key == 2)
+                            {
+                                if (!GetPKTabla(a.TablaOrigen).Contains(txtNewName))
+                                {
+                                    MessageBox.Show("The given Foreign Key does not exists");
+                                    return;
+                                }
+                            }
+                            gridAtributos.SelectedCells[0].Value = txtNewName;
+                            foreach (DataGridViewCell c in gridAtributos.Rows[row].Cells)
+                            {
+                                listaValores.Add(c.Value.ToString());
+                            }
+                            saveTupla(listaValores, row);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error updating the row");
+            }
+        }
+
+        //Metodo utilizado para encontrar si la tupla actualmente seleccionada esta siendo referenciada por alguna tupla en la misma o en otra tabla y asi, 
+        //evitar que esta sea modificada o eliminada.
+        private bool VerificarReferenciaRow()
+        {
+            try
+            {
+                string strTabla = cboTablas.SelectedItem.ToString();
+                string strPK = dicAtributos[strTabla].Find(x => x.Key == 1).Nombre;
+                int row = gridAtributos.SelectedCells[0].RowIndex;
+                string numValue = gridAtributos.Rows[row].Cells[gridAtributos.Columns[strPK].Index].Value.ToString();
+                Atributo a;
+                foreach (string s in dicAtributos.Keys)
+                {
+                    if (s != strTabla)
+                    {
+                        a = dicAtributos[s].FirstOrDefault(x => x.Key == 2);
+                        if (a != null && a.TablaOrigen == strTabla)
+                        {
+                            if (GetFKTabla(s).Contains(numValue))
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error verifying the reference");
+            }
+            return false;
         }
     }
 }

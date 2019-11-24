@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 namespace Bases_de_Datos
 {
+    //FORM UTILIZADO PARA LA EDICION DEL ATRIBUTO, LLENANDO ALGUNOS CAMPOS Y RECUPERANDO LA NUEVA INFORMACION
     public partial class EditAtributo : Form
     {
         public List<Atributo> atributos = new List<Atributo>();
@@ -28,6 +29,7 @@ namespace Bases_de_Datos
             fillCbAtributos();
         }
 
+        //Llena el combobox con los atributos editables de la tabla seleccionada
         public void fillCbAtributos()
         {
             foreach(Atributo a in atributos)
@@ -36,6 +38,7 @@ namespace Bases_de_Datos
             }
         }
 
+        //Se cambian los valores de los campos de la ventana para que concuerden con los actuales en el atributo
         private void cboAtributosEdit_SelectedIndexChanged(object sender, EventArgs e)
         {
             Atributo actual = atributos.Find(x => x.Nombre == cboAtributosEdit.SelectedItem.ToString());
@@ -77,6 +80,7 @@ namespace Bases_de_Datos
             this.Close();
         }
 
+        //Asignacion del tipo de dato dependiendo de la opcion que escogio el usuario en el combobox
         private void cbTipoDato_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (cbTipoDato.Text)
@@ -99,6 +103,7 @@ namespace Bases_de_Datos
             }
         }
 
+        //Asignacion del tipo de llave dependiendo de la opcion que escogio el usuario en el combobox
         private void cbKey_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (cbKey.Text)

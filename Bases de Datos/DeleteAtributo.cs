@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 namespace Bases_de_Datos
 {
+    //FORM UTILIZADO PARA PEDIRLE AL USUARIO EL NOMBRE DEL ATRIBUTO QUE QUIERE QUE SEA ELIMINADO
     public partial class DeleteAtributo : Form
     {
         public List<Atributo> atributos = new List<Atributo>();
@@ -22,6 +23,7 @@ namespace Bases_de_Datos
             fillCbAtributos();
         }
 
+        //Se llena el combobox con los atributos disponibles para su eliminacion
         public void fillCbAtributos()
         {
             foreach (Atributo a in atributos)

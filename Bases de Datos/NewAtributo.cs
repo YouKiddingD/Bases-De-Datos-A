@@ -28,6 +28,7 @@ namespace Bases_de_Datos
             fillCbTablas();
         }
 
+        //Metodo que llena el combobox de Tablas para seleccionar la llave foranea.
         private void fillCbTablas()
         {
             cbFK.Items.Clear();
@@ -37,6 +38,7 @@ namespace Bases_de_Datos
             }
         }
 
+        //Metodo que regresa las opciones escogidas por el usuario.
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             if (txtNombre.Text != string.Empty && txtAncho.Value != 0)
@@ -53,6 +55,7 @@ namespace Bases_de_Datos
             }
         }
 
+        //Asignacion del tipo de dato dependiendo de la opcion que escogio el usuario en el combobox
         private void cbTipoDato_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (cbTipoDato.Text)
@@ -75,6 +78,7 @@ namespace Bases_de_Datos
             }
         }
 
+        //Asignacion del tipo de llave dependiendo de la opcion que escogio el usuario en el combobox
         private void cbKey_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (cbKey.Text)
@@ -96,12 +100,14 @@ namespace Bases_de_Datos
             }
         }
 
+        //Metodo que activa el texto de ancho dependiendo del tipo de dato.
         private void cbFK_SelectedIndexChanged(object sender, EventArgs e)
         {
             txtAncho.Enabled = false;
             txtAncho.Value = Tablas[cbFK.Text];
         }
 
+        //Metodo para cancelar la operacion en proceso.
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
