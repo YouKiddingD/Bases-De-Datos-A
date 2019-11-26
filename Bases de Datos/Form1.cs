@@ -855,6 +855,7 @@ namespace Bases_de_Datos
                                     foreach (DataGridViewColumn c in gridAtributos.Columns)
                                     {
                                         c.Visible = true;
+                                        c.DisplayIndex = c.Index;
                                     }
                                 }
                                 else
@@ -863,9 +864,12 @@ namespace Bases_de_Datos
                                     {
                                         c.Visible = false;
                                     }
+                                    int i = 0;
                                     foreach (string s in Columns)
                                     {
                                         gridAtributos.Columns[s].Visible = true;
+                                        gridAtributos.Columns[s].DisplayIndex = i;
+                                        i++;
                                     }
                                 }
                                 if (auxIndex != -1)
